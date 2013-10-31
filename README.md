@@ -1,2 +1,2 @@
-solar-advocacy
+Solar Advocacy
 ==============
