@@ -13,8 +13,8 @@ var salsa = require('../utils/salsa.js');
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 module.exports = function (app) {
-  app.get('/user', getUser);
-  app.post('/user', postUser);
+  app.post('/get/user', getUser);
+  app.post('/save/user', postUser);
 };
 
 function getUser(req, res) {

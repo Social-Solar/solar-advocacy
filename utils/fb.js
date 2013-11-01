@@ -7,7 +7,7 @@
 
 var request = require('request');
 
-var url = 'http://graph.facebook.com/me?access_token=';
+var url = 'https://graph.facebook.com/me?access_token=';
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+- Public Functions +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -15,12 +15,10 @@ var url = 'http://graph.facebook.com/me?access_token=';
 
 function verify(id, token, cb) {
   request(url + token, function (err, resp, body) {
-    console.log(err);
-    console.log(body);
-
-    if (err) return cb('token doesn\'t exist.');
-    if (body !== id) return cb('ids don\'t match');
-
+    if (err) return cb(err);
+    body = JSON.parse(body);
+    if (body.error) return cb(body.error.message);
+    if (body.id != id) return cb('Your id and the token\'s id don\'t match');
     cb();
   });
 }
