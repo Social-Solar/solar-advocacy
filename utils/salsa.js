@@ -5,8 +5,10 @@
 // -+- Load Requires -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
-var request = require('request');
-var apiUrl  = 'https://hq-salsa.wiredforchange.com/api/';
+var request = require('request'),
+         sc = require('config').salsa;
+
+var apiUrl  = 'https://hq-salsa.wiredforchange.com/';
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+- Public Functions +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -25,24 +27,12 @@ var apiUrl  = 'https://hq-salsa.wiredforchange.com/api/';
  *   privacy: Object?
  * }
  */
-function getUser(id, cb) {
-  cb('Not Implemented');
-}
-
-function authenticate(email, pass, jar, cb) {
- var url = apiUrl + 'authenticate.sjs';
-
- request({
-   url: url,
-   qs: {
-     email: email,
-     password: pass,
-     json: true
-   },
-   jar: jar
- }, function (err, resp, body) {
-   cb(err, body);
- });
+function getUser(key, cb) {
+  var cookieJar = request.jar();
+  _authenticate(cookieJar, function (err) {
+    if (err) return cb(err);
+    _findUser(key, cookieJar, cb);
+  });
 }
 
 /*
@@ -50,9 +40,67 @@ function authenticate(email, pass, jar, cb) {
  * id: user.id. cb is in the form cb(err) where err is a string. If no err is
  * passed, success is assumed.
  */
-function saveUser(user, jar, cb) {
+function saveUser(user, cb) {
+  var jar = request.jar();
+  _authenticate(jar, function (err) {
+    if (err) return cb(err);
+    _createUser(user, jar, function (err, key) {
+      if (err) return cb(err);
+      _addToGroup(key, jar, cb);
+    });
+  });
+}
+
+module.exports = {
+  get: getUser,
+  save: saveUser
+};
+
+
+// -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+// -+- Private Functions -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+// -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+function _authenticate(jar, cb) {
+  var url = apiUrl + 'api/authenticate.sjs';
   request({
-    url: 'https://hq-salsa.wiredforchange.com/save',
+    url: url,
+    qs: {
+      email: sc.user,
+      password: sc.pass,
+      json: true
+    },
+    jar: jar
+  }, function (err, resp, body) {
+    if (err) return cb(err);
+    body = JSON.parse(body);
+    if (body.status !== 'success') return cb(body.message);
+    cb();
+  });
+}
+
+function _findUser(key, jar, cb) {
+  var url = apiUrl + '/api/getObjects.sjs';
+  request({
+    url: url,
+    qs: {
+      object: 'supporter',
+      condition: 'Email=' + key,
+      include: 'fbtoken,solar_company,privacy_settings',
+      json: true
+    },
+    jar: jar
+  }, function (err, resp, body) {
+    if (err) return cb(err);
+    body = JSON.parse(body);
+    if (!body.length) return cb ('Not Found');
+    cb(null, body[0]);
+  });
+}
+
+function _createUser(user, jar, cb) {
+  request({
+    url: apiUrl + 'save',
     method: 'POST',
     qs: {
       object:           'supporter',
@@ -63,39 +111,29 @@ function saveUser(user, jar, cb) {
       json:             true
     },
     jar: jar
-  }, function(err, res, body) {
-    cb(body);
+  }, function (err, res, body) {
+    if (err) return cb(err);
+    body = JSON.parse(body)[0];
+    if (body.result !== 'success') return cb(body.messages);
+    cb(null, body.key);
   });
-};
+}
 
-function addToGroup(userKey, jar, cb) {
+function _addToGroup(userKey, jar, cb) {
   request({
-    url: 'https://hq-salsa.wiredforchange.com/save',
+    url: apiUrl + 'save',
     method: 'POST',
     qs: {
       object:           'supporter_groups',
       supporter_KEY:    userKey,
-      groups_KEY:       67447,
+      groups_KEY:       67471,
       json:             true
     },
     jar: jar
-  }, function(err, res, body) {
-    cb(body);
+  }, function (err, res, body) {
+    if (err) return cb(err);
+    body = JSON.parse(body)[0];
+    if (body.result !== 'success') return cb(body.messages);
+    cb();
   });
-};
-
-function _save(user, cb) {
-  var jar = request.jar();
-  authenticate('justinpermann@gmail.com', 'solarpower', jar, function() {
-    saveUser(user, jar, function(res) {
-      addToGroup(res.key, jar, function(res){
-        console.log(res);
-      });
-    });
-  });
-};
-
-module.exports = {
-  get: getUser,
-  save: _save
-};
+}
