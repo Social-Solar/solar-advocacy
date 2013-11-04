@@ -6,7 +6,7 @@
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 var verify = require('../utils/fb.js').verify;
-var salsa = require('../utils/salsa.js');
+var salsa  = require('../utils/salsa.js');
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+- Public Functions +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -15,6 +15,7 @@ var salsa = require('../utils/salsa.js');
 module.exports = function (app) {
   app.post('/get/user', getUser);
   app.post('/save/user', postUser);
+  app.get('/test', test);
 };
 
 function getUser(req, res) {
@@ -52,6 +53,23 @@ function postUser(req, res) {
       res.send({
         success: true
       });
+    });
+  });
+}
+
+function test(req, res) {
+  var data = req.body;
+  var user = {
+    id:      'justin.permann@koobecaf.com',
+    token:   12345,
+    company: 'Vivint',
+    privacy: 'TEST'
+  };
+
+  salsa.save(user, function (err) {
+    if (err) return _fail(res, err);
+    res.send({
+      success: true
     });
   });
 }

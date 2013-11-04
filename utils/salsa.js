@@ -6,6 +6,7 @@
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 var request = require('request');
+var apiUrl  = 'https://hq-salsa.wiredforchange.com/api/';
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+- Public Functions +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -28,16 +29,73 @@ function getUser(id, cb) {
   cb('Not Implemented');
 }
 
+function authenticate(email, pass, jar, cb) {
+ var url = apiUrl + 'authenticate.sjs';
+
+ request({
+   url: url,
+   qs: {
+     email: email,
+     password: pass,
+     json: true
+   },
+   jar: jar
+ }, function (err, resp, body) {
+   cb(err, body);
+ });
+}
+
 /*
  * Takes a user (see above for form) and a cb. Saves the user in salsa with the
  * id: user.id. cb is in the form cb(err) where err is a string. If no err is
  * passed, success is assumed.
  */
-function saveUser(user, cb) {
-  cb('Not Implemented');
-}
+function saveUser(user, jar, cb) {
+  request({
+    url: 'https://hq-salsa.wiredforchange.com/save',
+    method: 'POST',
+    qs: {
+      object:           'supporter',
+      Email:            user.id,
+      fbtoken:          user.token,
+      solar_company:    user.company,
+      privacy_settings: user.privacy,
+      json:             true
+    },
+    jar: jar
+  }, function(err, res, body) {
+    cb(body);
+  });
+};
+
+function addToGroup(userKey, jar, cb) {
+  request({
+    url: 'https://hq-salsa.wiredforchange.com/save',
+    method: 'POST',
+    qs: {
+      object:           'supporter_groups',
+      supporter_KEY:    userKey,
+      groups_KEY:       67447,
+      json:             true
+    },
+    jar: jar
+  }, function(err, res, body) {
+    cb(body);
+  });
+};
+
+function _save(user, cb) {
+  var jar = request.jar();
+  authenticate('justinpermann@gmail.com', 'solarpower', jar, function() {
+    saveUser(user, jar, function(res) {
+      addToGroup(res.key, jar, function(res){
+        console.log(res);
+      });
+    });
+  });
+};
 
 module.exports = {
   get: getUser,
-  save: saveUser
+  save: _save
 };
