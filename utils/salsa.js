@@ -13,7 +13,8 @@ var apiUrl  = 'https://hq-salsa.wiredforchange.com/';
 var groupKeys = {
   Vivint:    67471,
   Sungevity: 67448,
-  Enphase:   67449
+  Enphase:   67449,
+  Other:     67495
 };
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
