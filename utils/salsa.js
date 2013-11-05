@@ -127,7 +127,6 @@ function _createUser(user, jar, cb) {
 }
 
 function _addToGroup(userKey, groupKey, jar, cb) {
-  console.log(groupKey);
   request({
     url: apiUrl + 'save',
     method: 'POST',

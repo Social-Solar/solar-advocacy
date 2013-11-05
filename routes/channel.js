@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function (app) {
-  app.all('/channel', log);
+  app.all('/', log);
   app.get('/asdf', get);
 };
 
@@ -14,7 +14,7 @@ function log(req, res) {
   test += JSON.stringify(req.query);
   test += JSON.stringify(req.body);
 
-  res.send(test);
+  res.sendfile('./public/index.html');
 }
 
 function get(req, res) {
