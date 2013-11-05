@@ -13,7 +13,6 @@ angular.module('i-like-solar').controller('fbCtrl',
     fb.getLoginStatus(function (res) {
       $scope.loading = false;
       if (res.status === 'connected') {
-        console.log(res);
         id = res.authResponse.userID;
         token = res.authResponse.accessToken;
         loadApp();
@@ -31,34 +30,47 @@ angular.module('i-like-solar').controller('fbCtrl',
     };
 
     $scope.verify = function (company, company2) {
-      return company === 'Other' ? !company2 : false;
+      return company === 'Other' ? !company2 : !company;
     };
 
-    $scope.saveOptions = function (company, company2) {
+    $scope.saveOptions = function (company, company2, swFriends, swFoF) {
       var obj = {
         id:      id,
         token:   token,
         company: company !== 'Other' ? company : company2,
-        privacy: 'Test'
+        privacy: {
+          friends: swFriends,
+          friendsOfFriends: swFoF
+        }
       };
 
-      salsa.saveOptions(obj, function (err, data) {
-        console.log(err);
-        console.log(data);
+      salsa.saveOptions(obj, function (err) {
+        if (err) return console.error(err);
+        // TODO:: SUCCESS YOU SAVED YOUR DATA
+        // OR NO YOU DIDNT
       });
     };
 
     function loadApp() {
-      $scope.loggedIn = true;
+      var gotName = false;
+      var gotOptions = false;
 
+      $scope.loggedIn = true;
+      $scope.loading = true;
       fb.getUser(function (res) {
         $scope.name = res.first_name || res.name;
-        console.log(res);
+        gotName = true;
+        if (gotOptions) $scope.loading = false;
       });
 
       salsa.getOptions({ id: id, token: token }, function (err, data) {
-        if (err) return;
-        console.log(data);
+        gotOptions = true;
+        if (gotName) $scope.loading = false;
+        if (err) return console.error(err);
+        $scope.company = data.company;
+
+        $scope.swFriends = data.privacy.friends;
+        $scope.swFoF = data.privacy.friendsOfFriends;
       });
     }
   }

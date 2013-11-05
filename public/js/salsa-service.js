@@ -17,7 +17,7 @@ angular.module('i-like-solar').factory('salsa',
       var url = baseURL + '/save/user';
       $http.post(url, obj).then(function (res) {
         if (!res.data.success) return cb(res.data.err);
-        cb(null, res.data.user);
+        cb();
       });
     }
 

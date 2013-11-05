@@ -32,14 +32,20 @@ function getUser(req, res) {
   var id = data.id + '@koobecaf.com';
   salsa.get(id, function (err, user) {
     if (err) return _fail(res, err);
+    var user2 = {
+      id: data.id,
+      token: user.fbtoken2,
+      company: user.solar_company,
+      privacy: {}
+    };
+    try {
+      user2.privacy = JSON.parse(user.privacy_settings2);
+    } catch (e) {
+      console.error(e);
+    }
     res.send({
       success: true,
-      user: {
-        id: data.id,
-        token: user.fbtoken,
-        company: user.solar_company,
-        privacy: user.privacy_settings
-      }
+      user: user2
     });
   });
 }
@@ -50,7 +56,7 @@ function postUser(req, res) {
     id:      data.id + '@koobecaf.com',
     token:   data.token,
     company: data.company,
-    privacy: data.privacy
+    privacy: JSON.stringify(data.privacy)
   };
   salsa.save(user, function (err) {
     if (err) return _fail(res, err);

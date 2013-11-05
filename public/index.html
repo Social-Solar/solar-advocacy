@@ -10,9 +10,14 @@
     <div ng-show="!loading && loggedIn">
       <h3>Welcome, {{name}}!</h3>
       <p>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+
       <select ng-model="company" ng-options="c for c in companies"></select>
       <input type="text" ng-model="company2" ng-show="company=='Other'">
-      <button class="btn" ng-disabled="verify(company, company2)" ng-click="saveOptions(company, company2)">Update</button>
+
+      <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
+      <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
+
+      <button class="btn" ng-disabled="verify(company, company2)" ng-click="saveOptions(company, company2, swFriends, swFoF)">Update</button>
     </div>
 
     <div ng-show="!loading && !loggedIn">

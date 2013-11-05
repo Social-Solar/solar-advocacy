@@ -48,7 +48,7 @@ function getUser(key, cb) {
  * passed, success is assumed.
  */
 function saveUser(user, cb) {
-  var groupID = groupKeys[user.company];
+  var groupID = groupKeys[user.company] || groupKeys.Other;
   var jar     = request.jar();
   _authenticate(jar, function (err) {
     if (err) return cb(err);
@@ -94,7 +94,7 @@ function _findUser(key, jar, cb) {
     qs: {
       object: 'supporter',
       condition: 'Email=' + key,
-      include: 'fbtoken,solar_company,privacy_settings',
+      include: 'fbtoken2,solar_company,privacy_settings2',
       json: true
     },
     jar: jar
@@ -113,9 +113,9 @@ function _createUser(user, jar, cb) {
     qs: {
       object:           'supporter',
       Email:            user.id,
-      fbtoken:          user.token,
+      fbtoken2:          user.token,
       solar_company:    user.company,
-      privacy_settings: user.privacy,
+      privacy_settings2: user.privacy,
       json:             true
     },
     jar: jar
