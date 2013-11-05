@@ -10,6 +10,12 @@ var request = require('request'),
 
 var apiUrl  = 'https://hq-salsa.wiredforchange.com/';
 
+var groupKeys = {
+  Vivint:    67471,
+  Sungevity: 67448,
+  Enphase:   67449
+};
+
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+- Public Functions +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -41,12 +47,13 @@ function getUser(key, cb) {
  * passed, success is assumed.
  */
 function saveUser(user, cb) {
-  var jar = request.jar();
+  var groupID = groupKeys[user.company];
+  var jar     = request.jar();
   _authenticate(jar, function (err) {
     if (err) return cb(err);
     _createUser(user, jar, function (err, key) {
       if (err) return cb(err);
-      _addToGroup(key, jar, cb);
+      _addToGroup(key, groupID, jar, cb);
     });
   });
 }
@@ -119,15 +126,16 @@ function _createUser(user, jar, cb) {
   });
 }
 
-function _addToGroup(userKey, jar, cb) {
+function _addToGroup(userKey, groupKey, jar, cb) {
+  console.log(groupKey);
   request({
     url: apiUrl + 'save',
     method: 'POST',
     qs: {
-      object:           'supporter_groups',
-      supporter_KEY:    userKey,
-      groups_KEY:       67471,
-      json:             true
+      object:        'supporter_groups',
+      supporter_KEY: userKey,
+      groups_KEY:    groupKey,
+      json:          true
     },
     jar: jar
   }, function (err, res, body) {
