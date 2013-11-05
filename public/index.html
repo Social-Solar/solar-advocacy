@@ -1,23 +1,31 @@
-<html ng-app id="fb-root">
+<html id="fb-root">
   <head>
     <title>I Like Solar</title>
+    <link rel="stylesheet" href="//fb.dallinosmun.com/css/bootstrap.css">
+    <link rel="stylesheet" href="//fb.dallinosmun.com/css/style.css">
   </head>
-  <body>
-    <h1>Solar is teh best!1!</h1>
-    {{4+3}}
-    <select id='solar-company'>
-      <option value='Vivint'>Vivint</option>
-      <option value='Sungevity'>Sungevity</option>
-      <option value='Enphase'>Enphase</option>
-    </select>
+  <body ng-controller="fbCtrl" ng-show="true" style="display:none">
+    <div ng-show="loading">LOADING...</div>
 
-    <script src="//fb.dallinosmun.com/js/lib/angular.min.js"></script>
+    <div ng-show="!loading && loggedIn">
+      <h3>Welcome, {{name}}!</h3>
+      <p>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+      <select ng-model="company" ng-options="c for c in companies"></select>
+      <input type="text" ng-model="company2" ng-show="company=='Other'">
+      <button class="btn" ng-disabled="verify(company, company2)" ng-click="saveOptions(company, company2)">Update</button>
+    </div>
+
+    <div ng-show="!loading && !loggedIn">
+      <button class="btn btn-success" ng-click="login()">Login!</button>
+    </div>
+
     <script src="//connect.facebook.net/en_US/all.js"></script>
-    <script>
-      FB.init({
-        appId: '582937771761901',
-        channelUrl: '//fb.dallinosmun.com/channel'
-      });
-    </script>
+    <script src="//fb.dallinosmun.com/js/lib/angular.min.js"></script>
+
+    <script src="//fb.dallinosmun.com/js/module.js"></script>
+    <script src="//fb.dallinosmun.com/js/fb-service.js"></script>
+    <script src="//fb.dallinosmun.com/js/salsa-service.js"></script>
+    <script src="//fb.dallinosmun.com/js/controller.js"></script>
+    <script src="//fb.dallinosmun.com/js/main.js"></script>
   </body>
 </html>

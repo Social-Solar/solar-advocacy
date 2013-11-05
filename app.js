@@ -2,7 +2,6 @@
 'use strict';
 
 var    http = require('http'),
-      https = require('https'),
          fs = require('fs'),
     express = require('express'),
      config = require('config');
@@ -30,12 +29,3 @@ fs.readdirSync(__dirname + '/routes').forEach(function (file) {
 });
 
 http.createServer(app).listen(config.port);
-
-
-
-// var options = {
-//   key: fs.readFileSync('test/fixtures/keys/agent2-key.pem'),
-//   cert: fs.readFileSync('test/fixtures/keys/agent2-cert.pem')
-// };
-
-// https.createServer(options, app).listen(config.securePort);
