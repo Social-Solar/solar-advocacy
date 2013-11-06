@@ -7,21 +7,31 @@
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
     <div ng-show="loading">LOADING...</div>
 
-    <div ng-show="!loading && loggedIn">
+    <div ng-show="!loading && loggedIn" class='wrapper'>
       <h3>Welcome, {{name}}!</h3>
-      <p>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+      <div style="margin: 0 0 10px 10px">
+        <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+        <hr>
 
-      <select ng-model="company" ng-options="c for c in companies"></select>
-      <input type="text" ng-model="company2" ng-show="company=='Other'">
+        <div style="margin-bottom: 5px">Who's your solar provider?</div>
+        <select ng-model="company" ng-options="c for c in companies"></select>
+        <div ng-show="company=='Other'">
+          <div style="margin-bottom: 5px">Not listed? Type their name below</div>
+          <input type="text" ng-model="company2">
+        </div>
 
-      <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
-      <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
+        <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
+        <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
 
-      <button class="btn" ng-disabled="verify(company, company2)" ng-click="saveOptions(company, company2, swFriends, swFoF)">Update</button>
+        <button class="btn" ng-disabled="verify(company, company2)" ng-click="saveOptions(company, company2, swFriends, swFoF)">Update</button>
+      </div>
     </div>
 
-    <div ng-show="!loading && !loggedIn">
-      <button class="btn btn-success" ng-click="login()">Login!</button>
+    <div ng-show="!loading && !loggedIn" class='wrapper'>
+      <h3>Help spread the word about solar!</h3>
+      <div class="center">
+        <button class="btn btn-success" ng-click="login()">Join!</button>
+      </div>
     </div>
 
     <script src="//connect.facebook.net/en_US/all.js"></script>
