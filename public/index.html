@@ -5,7 +5,10 @@
     <link rel="stylesheet" href="//fb.dallinosmun.com/css/style.css">
   </head>
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
-    <div ng-show="loading">LOADING...</div>
+    <div class="wrapper center" ng-show="loading">
+      <div class="top">Loading</div>
+      <img class="bottom" src='img/loading-orange-t2.gif'>
+    </div>
 
     <div ng-show="!loading && loggedIn" class='wrapper'>
       <h3>Welcome, {{name}}!</h3>
