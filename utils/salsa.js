@@ -139,9 +139,10 @@ function _addToGroup(userKey, groupKey, jar, cb) {
     },
     jar: jar
   }, function (err, res, body) {
-    if (err) return cb(err);
-    body = JSON.parse(body)[0];
-    if (body.result !== 'success') return cb(body.messages);
     cb();
+    // if (err) return cb(err);
+    // body = JSON.parse(body)[0];
+    // if (body.result !== 'success') return cb(body.messages);
+    // cb();
   });
 }
