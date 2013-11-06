@@ -8,5 +8,6 @@ module.exports = {
     appId: 'Facebook-app-id-goes-here',
     secret: 'Facebook-app-secret-goes-here'
   },
-  port: 3000
+  port: 3000,
+  securePort: 4000,
 };
