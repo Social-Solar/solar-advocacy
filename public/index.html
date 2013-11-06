@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="//fb.dallinosmun.com/css/style.css">
   </head>
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
-    <div ng-show="loading">LOADING...</div>
+    <div ng-show="loading">LOADING...<img src='//fb.dallinosmun.com/img/loading-orange-t2.gif'></div>
 
     <div ng-show="!loading && loggedIn" class='wrapper'>
       <h3>Welcome, {{name}}!</h3>
@@ -30,7 +30,7 @@
     <div ng-show="!loading && !loggedIn" class='wrapper'>
       <h3>Help spread the word about solar!</h3>
       <div class="center">
-        <button class="btn btn-success" ng-disabled="joining" ng-click="login()">{{joining ? 'Joining' : 'Join!'}}</button>
+        <button class="btn btn-success bottom" ng-disabled="joining" ng-click="login()">{{joining ? 'Joining' : 'Join!'}}</button>
       </div>
     </div>
 
