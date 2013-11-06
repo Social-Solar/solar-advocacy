@@ -1,6 +1,6 @@
 /* global angular, console */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, $setTimeout, fb, salsa) {
+  function ($scope, $timeout, fb, salsa) {
     'use strict';
     $scope.alerts = [];
 
@@ -92,7 +92,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       };
 
       $scope.alerts.push(alert);
-      $setTimeout(function () {
+      $timeout(function () {
         var index = $scope.alerts.indexOf(alert);
         $scope.alerts.splice(index, 1);
       }, 2000);
