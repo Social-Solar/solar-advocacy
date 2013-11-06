@@ -1,7 +1,8 @@
 /* global angular, console */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, fb, salsa) {
+  function ($scope, $setTimeout, fb, salsa) {
     'use strict';
+    $scope.alerts = [];
 
     $scope.companies = [ 'Vivint', 'Sungevity', 'Enphase', 'Other' ];
 
@@ -20,11 +21,17 @@ angular.module('i-like-solar').controller('fbCtrl',
     });
 
     $scope.login = function () {
+      $scope.joining = true;
       fb.login(function (res) {
+        $scope.joining = true;
         if (res.authResponse) {
           id = res.authResponse.userID;
           token = res.authResponse.accessToken;
           loadApp();
+          createAlert('success', 'Congrats! Thanks for joining!');
+        } else {
+          $scope.joining = false;
+          createAlert('error', 'Oops, Something went wrong. Try again!');
         }
       });
     };
@@ -34,6 +41,7 @@ angular.module('i-like-solar').controller('fbCtrl',
     };
 
     $scope.saveOptions = function (company, company2, swFriends, swFoF) {
+      $scope.saving = true;
       var obj = {
         id:      id,
         token:   token,
@@ -45,9 +53,12 @@ angular.module('i-like-solar').controller('fbCtrl',
       };
 
       salsa.saveOptions(obj, function (err) {
-        if (err) return console.error(err);
-        // TODO:: SUCCESS YOU SAVED YOUR DATA
-        // OR NO YOU DIDNT
+        $scope.saving = false;
+        if (err) {
+          createAlert('error', 'Oops, something went wrong.');
+          return console.error(err);
+        }
+        createAlert('success', 'Your info has been saved!');
       });
     };
 
@@ -72,6 +83,19 @@ angular.module('i-like-solar').controller('fbCtrl',
         $scope.swFriends = data.privacy.friends;
         $scope.swFoF = data.privacy.friendsOfFriends;
       });
+    }
+
+    function createAlert(type, msg) {
+      var alert = {
+        type: type,
+        msg: msg
+      };
+
+      $scope.alerts.push(alert);
+      $setTimeout(function () {
+        var index = $scope.alerts.indexOf(alert);
+        $scope.alerts.splice(index, 1);
+      }, 2000);
     }
   }
 );
