@@ -18,7 +18,7 @@ This way, you can develop locally and see the changes on facebook on every refre
 2. Go install NodeJS from `http://nodejs.org/`
 3. Navigate your terminal to the root directory of the project.
 4. Run `npm install`
-5. Run `node app secure`
+5. Run `NODE_ENV=production; node app secure`
 6. The server should now be running locally on port 3000 (http) and port 4000 (https)
 
 ##Pushing to AppFog
