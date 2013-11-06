@@ -17,6 +17,7 @@ module.exports = function (app) {
   app.post('/save/user', fbVerify, postUser);
   app.post('/test/get', getUser);
   app.post('/test/save', postUser);
+  app.post('/test/group', findGroup);
 };
 
 function fbVerify(req, res, next) {
@@ -62,6 +63,17 @@ function postUser(req, res) {
     if (err) return _fail(res, err);
     res.send({
       success: true
+    });
+  });
+}
+
+function findGroup(req, res) {
+  if (!req.body.key)  return res.send({success: false});
+  salsa.getGroup(req.body.key, function (err, data) {
+    if (err) return _fail(data, err);
+    res.send({
+      success: true,
+      data:    data
     });
   });
 }
