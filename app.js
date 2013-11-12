@@ -27,6 +27,7 @@ fs.readdirSync(__dirname + '/routes').forEach(function (file) {
 });
 
 http.createServer(app).listen(config.port);
+console.log('Server listening on port ' + config.port);
 
 if (process.argv[2] === 'secure') {
   var https = require('https');
@@ -37,4 +38,5 @@ if (process.argv[2] === 'secure') {
   };
 
   https.createServer(options, app).listen(config.securePort);
+  console.log('Secure Server listening on port ' + config.securePort);
 }
