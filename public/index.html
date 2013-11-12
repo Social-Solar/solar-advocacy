@@ -1,13 +1,13 @@
 <html id="fb-root">
   <head>
     <title>I Like Solar</title>
-    <link rel="stylesheet" href="//fb.dallinosmun.com/css/bootstrap.css">
-    <link rel="stylesheet" href="//fb.dallinosmun.com/css/style.css">
+    <link rel="stylesheet" href="{{BASEURL}}/css/bootstrap.css">
+    <link rel="stylesheet" href="{{BASEURL}}/css/style.css">
   </head>
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
     <div class="wrapper center" ng-show="loading">
       <div class="top">Loading</div>
-      <img class="bottom" src='//fb.dallinosmun.com/img/loading-orange-t2.gif'>
+      <img class="bottom" src='{{BASEURL}}/img/loading-orange-t2.gif'>
     </div>
 
     <div ng-show="!loading && loggedIn" class='wrapper'>
@@ -43,13 +43,16 @@
       </div>
     </div>
 
+    <script>
+      var BASE_URL = '{{BASEURL}}';
+    </script>
     <script src="//connect.facebook.net/en_US/all.js"></script>
-    <script src="//fb.dallinosmun.com/js/lib/angular.min.js"></script>
+    <script src="{{BASEURL}}/js/lib/angular.min.js"></script>
 
-    <script src="//fb.dallinosmun.com/js/module.js"></script>
-    <script src="//fb.dallinosmun.com/js/fb-service.js"></script>
-    <script src="//fb.dallinosmun.com/js/salsa-service.js"></script>
-    <script src="//fb.dallinosmun.com/js/controller.js"></script>
-    <script src="//fb.dallinosmun.com/js/main.js"></script>
+    <script src="{{BASEURL}}/js/module.js"></script>
+    <script src="{{BASEURL}}/js/fb-service.js"></script>
+    <script src="{{BASEURL}}/js/salsa-service.js"></script>
+    <script src="{{BASEURL}}/js/controller.js"></script>
+    <script src="{{BASEURL}}/js/main.js"></script>
   </body>
 </html>

@@ -1,12 +1,10 @@
-/* global angular */
+/* global angular, BASE_URL */
 angular.module('i-like-solar').factory('salsa',
   function ($http) {
     'use strict';
 
-    var baseURL = '//fb.dallinosmun.com';
-
     function getOptions(obj, cb) {
-      var url = baseURL + '/get/user';
+      var url = BASE_URL + '/get/user';
       $http.post(url, obj).then(function (res) {
         if (!res.data.success) return cb(res.data.err);
         cb(null, res.data.user);
@@ -14,7 +12,7 @@ angular.module('i-like-solar').factory('salsa',
     }
 
     function saveOptions(obj, cb) {
-      var url = baseURL + '/save/user';
+      var url = BASE_URL + '/save/user';
       $http.post(url, obj).then(function (res) {
         if (!res.data.success) return cb(res.data.err);
         cb();
