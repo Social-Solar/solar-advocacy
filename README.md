@@ -2,34 +2,28 @@ Solar Advocacy
 ==============
 **!! Make sure to read the important note below !!**
 
-This app relies heavily on Facebook's API and, as such, is designed to be run solely as a Facebook App. You can still run it locally, but it won't do a whole lot. If you'd like to run it, this document will show you how to get started.
-
-I can see one real good use of running the app locally. You could:
-
-1. Create a new facebook app for testing.
-2. Run this app locally.
-3. Point your facebook app at your current IP Address.
-4. Set up the appropriate port forwarding and firewall exceptions.
-
-This way, you can develop locally and see the changes on facebook on every refresh.
-
 ##Running it Locally
-1. Get the git repo by running `git clone https://github.com/Social-Solar/solar-advocacy.git`.
-2. Go install NodeJS from `http://nodejs.org/`
-3. Navigate your terminal to the root directory of the project.
-4. Run `npm install`
-5. Run `NODE_ENV=production; node app secure`
-6. The server should now be running locally on port 3000 (http) and port 4000 (https)
+1. Go install NodeJS from `http://nodejs.org/`
+2. Get the git repo by running `git clone https://github.com/Social-Solar/solar-advocacy.git`.
+3. Make an entry in your `/etc/hosts` file to route `local.seia.org` to `127.0.0.1`
+4. Read Important Note and create local.js
+5. Navigate your terminal to the root directory of the project.
+6. Run `npm install`
+7. To create an http server, run `node app`
+8. To create both an http and https server run `node app secure`
+9. The server will run locally on port(s) 3000 (http) and port 4000 (https)
 
-##Pushing to AppFog
-1. Install the AppFog CLI. (google is your friend)
-2. Login to app fog by typing `af login` in the terminal.
-3. Type `af update i-like-solar`
-4. It should now be on Facebook.
+##Running it in Production
+1. ssh into seia.org (get credentials from Susanna)
+2. Navigate to `/var/www/vhosts/solaradv.www/solar-advocacy`
+3. run `git pull` to get the latest code from github.
+4. Run `npm install` if needed.
+5. Update `production.js` if needed.
+6. Run `node app secure`
+
+Note: We'll probably want to make a service to start and stop this site.
 
 ##Important Note
-I didn't include any passwords or tokens inside of github. If you look inside `.gitignore` you can see that `config/production.js` is not included in the project.
+I didn't include any passwords or tokens inside of github. If you look inside `.gitignore` you can see that `config/production.js` and `config/local.js` are not included in the project.
 
-Before you can do any of the above, go into the config folder and make a copy of `default.js` and call it `production.js`. You'll probably have to get Salsa Credentials from Susanna. If you email the Vivint guys, we can give you the facebook credentials.
-
-If you're running your own facebook app, then you'll already have your app id and secret. If you're pushing to appfog, make sure to get the correct app id and secret from us.
+To run the project, you'll need to add those passwords and tokens. Inside the `config/` folder, make a copy of `default.js` and call it `local.js`. If you email the Vivint guys, we can give you the facebook credentials. If you talk to SEIA, they can give you the Salsa credentials.
