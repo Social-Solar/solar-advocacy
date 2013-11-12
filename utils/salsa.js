@@ -11,10 +11,10 @@ var request = require('request'),
 var apiUrl  = 'https://hq-salsa.wiredforchange.com/';
 
 var groupKeys = {
-  Vivint:    67471,
-  Sungevity: 67448,
-  Enphase:   67449,
-  Other:     67495
+  Vivint:    67577,
+  Sungevity: 67578,
+  Enphase:   67579,
+  Other:     67580
 };
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -59,9 +59,22 @@ function saveUser(user, cb) {
   });
 }
 
+function getGroup(key, cb) {
+  var jar = request.jar();
+  _authenticate(jar, function(err) {
+    if (err) return cb(err);
+    _findGroup(key, jar, function(err, res) {
+      if (err) return cb(err);
+      console.log(res);
+      cb(null, res);
+    });
+  });
+};
+
 module.exports = {
   get: getUser,
-  save: saveUser
+  save: saveUser,
+  getGroup: getGroup
 };
 
 
@@ -86,6 +99,25 @@ function _authenticate(jar, cb) {
     cb();
   });
 }
+
+function _findGroup(key, jar, cb) {
+  var url = apiUrl + 'api/getObjects.sjs';
+  request({
+    url: url,
+    qs: {
+      object:     'supporter_groups',
+      condition:  'groups_KEY=' + key,
+      json:        true
+    },
+    jar: jar
+  }, function (err, res, body) {
+    if (err) return cb(err);
+    console.log("body: ", body);
+    body = JSON.parse(body);
+    if (!body.length) return cb('Not Found');
+    cb(null, body);
+  });
+};
 
 function _findUser(key, jar, cb) {
   var url = apiUrl + '/api/getObjects.sjs';

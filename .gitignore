@@ -4,6 +4,7 @@ npm-debug.log
 node_modules/
 build/
 
+config/local.js
 config/production.js
 config/localdev.js
 config/runtime.json
