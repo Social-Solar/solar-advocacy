@@ -47,12 +47,30 @@ angular.module('i-like-solar').controller('fbCtrl',
   			
   			user_message_prompt: 'Share your thoughts about solar'
 		};
-		FB.ui(publish,  function(res){
-			if (response && response.post_id) {
+		fb.ui(publish,  function(res){
+			if (res && res.post_id) {
        			createAlert('success', 'Your post was successful');
      		} else {	
 				createAlert('error', 'Oops, Something went wrong. Try again!');
 			}
+		});
+	};
+	$scope.requestfriends = function(){
+		var publish = {
+  			method: 'apprequests',
+			appId: '582937771761901',
+  			message: 'Do your solar panels make a difference? Come and share your story on the I Like Solar page.',
+  			title: 'Tell your friends about I Like Solar.'
+		};
+		fb.ui(publish,  function(res){
+			 if (res.request && res.to) {
+                var numFriends = res.to.length;
+				var f=' friends';
+				(numFriends >=2) ? f=" friends" : f=" friend";      
+                createAlert('success', 'Your request was sent to '+numFriends+f+'.');
+            } else {
+                createAlert('error', 'Oops, Something went wrong. Try again!');
+            }
 		});
 	};
     $scope.verify = function (company, company2) {

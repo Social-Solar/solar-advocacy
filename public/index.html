@@ -28,10 +28,15 @@
 
         <button class="btn" ng-disabled="verify(company, company2) || saving" ng-click="saveOptions(company, company2, swFriends, swFoF)">{{saving && 'Updating' || 'Update'}}</button>
       </div>
-      	<div class="life-event">
+      	<div class="action life-event">
           <h3>Share your solar story</h3>
           <p>Do your solar panels make a difference? Share your story with your friends.</p>
           <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
+    	</div>
+        <div class="action request-friends">
+          <h3>Invite your friends</h3>
+          <p>Have friends with solar? Invite them to join I Like Solar!</p>
+          <button class="btn btn-success bottom" ng-click="requestfriends()">Invite Friends</button>
     	</div>
     </div>
 	
