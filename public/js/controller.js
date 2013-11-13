@@ -47,7 +47,13 @@ angular.module('i-like-solar').controller('fbCtrl',
   			
   			user_message_prompt: 'Share your thoughts about solar'
 		};
-		FB.ui(publish, Log.info.bind('feed callback'));
+		FB.ui(publish,  function(res){
+			if (response && response.post_id) {
+       			createAlert('success', 'Your post was successful');
+     		} else {	
+				createAlert('error', 'Oops, Something went wrong. Try again!');
+			}
+		});
 	};
     $scope.verify = function (company, company2) {
       return company === 'Other' ? !company2 : !company;
