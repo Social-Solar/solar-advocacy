@@ -6,9 +6,11 @@
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 var request = require('request'),
-         sc = require('config').salsa;
+         sc = require('config').salsa,
+   waitress = require('waitress');
 
-var apiUrl  = 'https://hq-salsa.wiredforchange.com/';
+var salsaChapterKey = 10100;
+var apiUrl          = 'https://hq-salsa.wiredforchange.com/';
 
 var groupKeys = {
   Vivint:    67577,
@@ -52,29 +54,16 @@ function saveUser(user, cb) {
   var jar     = request.jar();
   _authenticate(jar, function (err) {
     if (err) return cb(err);
-    _createUser(user, jar, function (err, key) {
+    _createUser(user, groupID, jar, function(err, userKey) {
       if (err) return cb(err);
-      _addToGroup(key, groupID, jar, cb);
+      _assignGroup(userKey, groupID, jar, cb);
     });
   });
 }
 
-function getGroup(key, cb) {
-  var jar = request.jar();
-  _authenticate(jar, function(err) {
-    if (err) return cb(err);
-    _findGroup(key, jar, function(err, res) {
-      if (err) return cb(err);
-      console.log(res);
-      cb(null, res);
-    });
-  });
-};
-
 module.exports = {
   get: getUser,
-  save: saveUser,
-  getGroup: getGroup
+  save: saveUser
 };
 
 
@@ -100,34 +89,16 @@ function _authenticate(jar, cb) {
   });
 }
 
-function _findGroup(key, jar, cb) {
-  var url = apiUrl + 'api/getObjects.sjs';
-  request({
-    url: url,
-    qs: {
-      object:     'supporter_groups',
-      condition:  'groups_KEY=' + key,
-      json:        true
-    },
-    jar: jar
-  }, function (err, res, body) {
-    if (err) return cb(err);
-    console.log("body: ", body);
-    body = JSON.parse(body);
-    if (!body.length) return cb('Not Found');
-    cb(null, body);
-  });
-};
 
 function _findUser(key, jar, cb) {
   var url = apiUrl + '/api/getObjects.sjs';
   request({
     url: url,
     qs: {
-      object: 'supporter',
+      object:    'supporter',
       condition: 'Email=' + key,
-      include: 'fbtoken2,solar_company,privacy_settings2',
-      json: true
+      include:   'fbtoken2,solar_company,privacy_settings2',
+      json:      true
     },
     jar: jar
   }, function (err, resp, body) {
@@ -138,17 +109,20 @@ function _findUser(key, jar, cb) {
   });
 }
 
-function _createUser(user, jar, cb) {
+function _createUser(user, groupKey, jar, cb) {
   request({
     url: apiUrl + 'save',
     method: 'POST',
     qs: {
-      object:           'supporter',
-      Email:            user.id,
+      object:            'supporter',
+      Email:             user.id,
       fbtoken2:          user.token,
-      solar_company:    user.company,
+      solar_company:     user.company,
+      supporter_groups:  groupKey,
       privacy_settings2: user.privacy,
-      json:             true
+      link:              'chapter',
+      linkKey:           salsaChapterKey,
+      json:              true
     },
     jar: jar
   }, function (err, res, body) {
@@ -159,9 +133,69 @@ function _createUser(user, jar, cb) {
   });
 }
 
-function _addToGroup(userKey, groupKey, jar, cb) {
+function _assignGroup(userKey, groupKey, jar, cb) {
+  var done = waitress(3, cb);
+  //should be optimized if this app gets popular enough.
+  for (var key in groupKeys) {
+    var group = groupKeys[key];
+    if (group == groupKey) {
+      _addToGroup(groupKey, userKey, jar, done);
+    } else {
+      _findGroup(group, userKey, jar, function(err, res) {
+        if (err) return done(err);
+        if (res.hasGroup) {
+          _removeFromGroup(res.groupId, userKey, jar, done);
+        }
+        done();
+      });
+    }
+  }
+}
+
+function _findGroup(groupKey, userKey, jar, cb) {
+  var url = apiUrl + 'api/getObjects.sjs';
   request({
-    url: apiUrl + 'save',
+    url: url,
+    qs: {
+      object:    'supporter_groups',
+      condition: 'groups_KEY=' + groupKey,
+      json:      true
+    },
+    jar: jar
+  }, function (err, res, body) {
+    if (err) return cb(err);
+    body = JSON.parse(body);
+    var obj = {
+      hasGroup: false
+    };
+    body.forEach(function(member) {
+      if (member.supporter_KEY === userKey) {
+        obj.hasGroup = true;
+        obj.groupId  = member.key;
+      }
+    });
+    cb(null, obj);
+  });
+};
+
+function _removeFromGroup(groupKey, userKey, jar, cb) {
+  request({
+    url:    apiUrl + 'delete',
+    method: 'POST',
+    qs: {
+      object:        'supporter_groups',
+      key:           groupKey
+    },
+    jar: jar
+  }, function (err, res, body) {
+    if (err) return cb(err);
+    cb();
+  });
+}
+
+function _addToGroup(groupKey, userKey, jar, cb) {
+  request({
+    url:    apiUrl + 'save',
     method: 'POST',
     qs: {
       object:        'supporter_groups',
@@ -171,10 +205,7 @@ function _addToGroup(userKey, groupKey, jar, cb) {
     },
     jar: jar
   }, function (err, res, body) {
+    if (err) return cb(err);
     cb();
-    // if (err) return cb(err);
-    // body = JSON.parse(body)[0];
-    // if (body.result !== 'success') return cb(body.messages);
-    // cb();
   });
 }
