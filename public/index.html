@@ -28,15 +28,20 @@
 
         <button class="btn" ng-disabled="verify(company, company2) || saving" ng-click="saveOptions(company, company2, swFriends, swFoF)">{{saving && 'Updating' || 'Update'}}</button>
       </div>
+      	<div class="life-event">
+          <h3>Share your solar story</h3>
+          <p>Do your solar panels make a difference? Share your story with your friends.</p>
+          <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
+    	</div>
     </div>
-
+	
     <div ng-show="!loading && !loggedIn" class='wrapper'>
       <h3>Help spread the word about solar!</h3>
       <div class="center">
         <button class="btn btn-success bottom" ng-disabled="joining" ng-click="login()">{{joining && 'Joining' || 'Join!'}}</button>
       </div>
     </div>
-
+	
     <div class="all-alerts">
       <div ng-repeat="alert in alerts">
         <div class="alert alert-{{alert.type}}">{{alert.msg}}</div>
