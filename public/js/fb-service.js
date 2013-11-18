@@ -8,6 +8,14 @@ angular.module('i-like-solar').factory('fb',
       status: true
     });
 
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=582937771761901';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
     function getLoginStatus(cb) {
       FB.getLoginStatus(function (res) {
         cb(res);

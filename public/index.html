@@ -11,6 +11,7 @@
     </div>
 
     <div ng-show="!loading && loggedIn" class='wrapper'>
+      <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="100" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
       <h3>Welcome, {{name}}!</h3>
       <div style="margin: 0 0 10px 10px">
         <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
@@ -34,14 +35,14 @@
           <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
     	</div>
     </div>
-	
+
     <div ng-show="!loading && !loggedIn" class='wrapper'>
       <h3>Help spread the word about solar!</h3>
       <div class="center">
         <button class="btn btn-success bottom" ng-disabled="joining" ng-click="login()">{{joining && 'Joining' || 'Join!'}}</button>
       </div>
     </div>
-	
+
     <div class="all-alerts">
       <div ng-repeat="alert in alerts">
         <div class="alert alert-{{alert.type}}">{{alert.msg}}</div>
