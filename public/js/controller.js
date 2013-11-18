@@ -35,7 +35,20 @@ angular.module('i-like-solar').controller('fbCtrl',
         }
       });
     };
-
+	$scope.postfeed = function(){
+		var publish = {
+  			method: 'feed',
+  			message: 'Share your solar story',
+  			name: 'Share your solar story',
+  			caption: 'http://facebook.com/ilikesolar',
+			description: (  'Do your solar panels make a difference? Share your story with your friends.'),
+  			link: 'http://facebook.com/ilikesolar/',
+  			//picture: 'http://www.fbrell.com/public/f8.jpg',
+  			
+  			user_message_prompt: 'Share your thoughts about solar'
+		};
+		FB.ui(publish, Log.info.bind('feed callback'));
+	};
     $scope.verify = function (company, company2) {
       return company === 'Other' ? !company2 : !company;
     };
