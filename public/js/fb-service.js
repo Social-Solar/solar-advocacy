@@ -2,8 +2,11 @@
 angular.module('i-like-solar').factory('fb',
   function ($rootScope) {
     'use strict';
+
+    var appId = '582937771761901';
+
     FB.init({
-      appId: '582937771761901',
+      appId: appId,
       channelUrl: BASE_URL + '/channel.html',
       status: true
     });
@@ -12,7 +15,7 @@ angular.module('i-like-solar').factory('fb',
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=582937771761901';
+      js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=' + appId;
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
@@ -41,9 +44,11 @@ angular.module('i-like-solar').factory('fb',
     }
 
     function ui(publish, cb) {
-      var appId = '582937771761901';
       publish.appId = appId;
-      FB.ui(publish, cb);
+      FB.ui(publish, function (res) {
+        cb(res);
+        $rootScope.$apply();
+      });
     }
 
     return {
