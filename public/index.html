@@ -17,11 +17,16 @@
         <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
         <hr>
 
-        <div style="margin-bottom: 5px">Who's your solar provider?</div>
-        <select ng-model="company" ng-options="c for c in companies"></select>
-        <div ng-show="company=='Other'">
-          <div style="margin-bottom: 5px">Not listed? Type their name below</div>
-          <input type="text" ng-model="company2">
+        <div ng-show="showDrop">
+          <div style="margin-bottom: 5px">Who's your solar provider?</div>
+          <select ng-model="company" ng-options="c for c in companies"></select>
+          <div ng-show="company=='Other'">
+            <div style="margin-bottom: 5px">Not listed? Type their name below</div>
+            <input type="text" ng-model="company2">
+          </div>
+        </div>
+        <div ng-show="!showDrop">
+          <h4 style="margin-bottom: 5px">Welcome {{company}} advocate!</h4>
         </div>
 
         <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
