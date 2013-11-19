@@ -1,13 +1,16 @@
 /* global angular, console */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, $timeout, fb, salsa) {
+  function ($scope, $location, $timeout, fb, salsa) {
     'use strict';
-    $scope.alerts = [];
-
-    $scope.companies = [ 'Vivint', 'Sungevity', 'Enphase', 'Other' ];
-
-    $scope.loggedIn = false;
-    $scope.loading = true;
+    $scope.alerts    = [];
+    $scope.company   = $location.search().company;
+    $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
+    if ($scope.companies.indexOf($scope.company) === -1) {
+      $scope.company = null;
+    }
+    $scope.showDrop  = $scope.company ? false : true;
+    $scope.loggedIn  = false;
+    $scope.loading   = true;
 
     var id, token;
 
@@ -37,17 +40,16 @@ angular.module('i-like-solar').controller('fbCtrl',
     };
 	$scope.postfeed = function(){
 		var publish = {
-  			method: 'feed',
-  			message: 'Share your solar story',
-  			name: 'Share your solar story',
-  			caption: 'http://facebook.com/ilikesolar',
-			description: (  'Do your solar panels make a difference? Share your story with your friends.'),
-  			link: 'http://facebook.com/ilikesolar/',
-  			//picture: 'http://www.fbrell.com/public/f8.jpg',
-  			
-  			user_message_prompt: 'Share your thoughts about solar'
+        method: 'feed',
+        message: 'Share your solar story',
+        name: 'Share your solar story',
+        caption: 'http://facebook.com/ilikesolar',
+        description: (  'Do your solar panels make a difference? Share your story with your friends.'),
+        link: 'http://facebook.com/ilikesolar/',
+        //picture: 'http://www.fbrell.com/public/f8.jpg',
+        user_message_prompt: 'Share your thoughts about solar'
 		};
-		FB.ui(publish, Log.info.bind('feed callback'));
+		//FB.ui(publish, Log.info.bind('feed callback'));
 	};
     $scope.verify = function (company, company2) {
       return company === 'Other' ? !company2 : !company;

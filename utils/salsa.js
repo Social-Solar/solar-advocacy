@@ -13,10 +13,10 @@ var salsaChapterKey = 10100;
 var apiUrl          = 'https://hq-salsa.wiredforchange.com/';
 
 var groupKeys = {
-  Vivint:    67577,
-  Sungevity: 67578,
-  Enphase:   67579,
-  Other:     67580
+  vivint:    67577,
+  sungevity: 67578,
+  enphase:   67579,
+  other:     67580
 };
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -50,7 +50,7 @@ function getUser(key, cb) {
  * passed, success is assumed.
  */
 function saveUser(user, cb) {
-  var groupID = groupKeys[user.company] || groupKeys.Other;
+  var groupID = groupKeys[user.company.toLowerCase()] || groupKeys.Other;
   var jar     = request.jar();
   _authenticate(jar, function (err) {
     if (err) return cb(err);
