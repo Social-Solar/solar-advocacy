@@ -49,7 +49,30 @@ angular.module('i-like-solar').controller('fbCtrl',
         //picture: 'http://www.fbrell.com/public/f8.jpg',
         user_message_prompt: 'Share your thoughts about solar'
 		};
-		//FB.ui(publish, Log.info.bind('feed callback'));
+
+		fb.ui(publish,  function(res){
+			if (res && res.post_id) {
+          createAlert('success', 'Your post was successful');
+      } else {
+				createAlert('error', 'Oops, Something went wrong. Try again!');
+			}
+		});
+	};
+	$scope.requestfriends = function(){
+		var publish = {
+      method: 'apprequests',
+      message: 'Do your solar panels make a difference? Come and share your story on the I Like Solar page.',
+      title: 'Tell your friends about I Like Solar.'
+		};
+		fb.ui(publish,  function(res){
+			 if (res.request && res.to) {
+        var numFriends = res.to.length;
+        var f = numFriends >= 2 ? ' friends' : ' friend';
+        createAlert('success', 'Your request was sent to '+numFriends+f+'.');
+      } else {
+        createAlert('error', 'Oops, Something went wrong. Try again!');
+      }
+		});
 	};
     $scope.verify = function (company, company2) {
       return company === 'Other' ? !company2 : !company;

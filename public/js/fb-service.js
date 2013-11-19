@@ -40,10 +40,17 @@ angular.module('i-like-solar').factory('fb',
       });
     }
 
+    function ui(publish, cb) {
+      var appId = '582937771761901';
+      publish.appId = appId;
+      FB.ui(publish, cb);
+    }
+
     return {
       getLoginStatus: getLoginStatus,
-      login: login,
-      getUser: getUser
+      login:          login,
+      getUser:        getUser,
+      ui:             ui
     };
   }
 );
