@@ -3,8 +3,11 @@ angular.module('i-like-solar').controller('fbCtrl',
   function ($scope, $location, $timeout, fb, salsa) {
     'use strict';
     $scope.alerts    = [];
-    $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
     $scope.company   = $location.search().company;
+    $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
+    if ($scope.companies.indexOf($scope.company) === -1) {
+      $scope.company = null;
+    }
     $scope.showDrop  = $scope.company ? false : true;
     $scope.loggedIn  = false;
     $scope.loading   = true;
