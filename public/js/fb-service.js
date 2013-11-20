@@ -1,6 +1,6 @@
 /* global angular, FB, BASE_URL */
 angular.module('i-like-solar').factory('fb',
-  function ($rootScope) {
+  function ($rootScope, $http) {
     'use strict';
 
     var appId = '582937771761901';
@@ -43,6 +43,25 @@ angular.module('i-like-solar').factory('fb',
       });
     }
 
+    function getPhoto(id, cb) {
+      $http.get('http://graph.facebook.com/' + id + '/picture?redirect=false&type=large')
+        .then(function(res){
+          $http.post(BASE_URL + '/getPhoto', {
+            url: res.data.data.url,
+            id: id
+          })
+            .then(function(res) {
+              FB.api('/me/photos', 'post', {
+                  message: 'photo description',
+                  url:     res.data
+                }, function(res) {
+                  if (res.error) return cb(res);
+                  cb(null, res);
+              });
+            });
+        });
+    }
+
     function ui(publish, cb) {
       publish.appId = appId;
       FB.ui(publish, function (res) {
@@ -55,6 +74,7 @@ angular.module('i-like-solar').factory('fb',
       getLoginStatus: getLoginStatus,
       login:          login,
       getUser:        getUser,
+      getPhoto:       getPhoto,
       ui:             ui
     };
   }

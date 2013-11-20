@@ -100,6 +100,12 @@ angular.module('i-like-solar').controller('fbCtrl',
       });
     };
 
+    $scope.solarizePhoto = function() {
+      fb.getPhoto($scope.userId, function (err, res) {
+        console.log(err, res);
+      });
+    };
+
     function loadApp() {
       var gotName = false;
       var gotOptions = false;
@@ -107,10 +113,12 @@ angular.module('i-like-solar').controller('fbCtrl',
       $scope.loggedIn = true;
       $scope.loading = true;
       fb.getUser(function (res) {
+        $scope.userId = res.id || null;
         $scope.name = res.first_name || res.name;
         gotName = true;
         if (gotOptions) $scope.loading = false;
       });
+
 
       salsa.getOptions({ id: id, token: token }, function (err, data) {
         gotOptions = true;
