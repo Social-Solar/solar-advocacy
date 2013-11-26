@@ -14,14 +14,19 @@ h3 {
 }
 .wrapper {
   width: 80%;
-  margin-left: 10%;
+  margin: 0 auto;
+  padding: 30px;
   background-color: #fff;
-  border: 2px solid #fff;
   border-radius: 8px;
+  box-shadow: 0 0 20px 2px rgba(0,0,0,0.5);
 }
-.bottom {
-  margin-bottom: 10px;
+.loading {
+  padding: 30px;
+  font-size: 20px;
 }
-.top {
-  margin-top: 10px;
+.loading div {
+  margin-bottom: 20px;
+}
+.solarize img {
+  width: 200px;
 }

@@ -5,18 +5,24 @@
     <link rel="stylesheet" href="{{BASEURL}}/css/style.css">
   </head>
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
-    <div class="wrapper center" ng-show="loading">
-      <div class="top">Loading</div>
-      <img class="bottom" src='{{BASEURL}}/img/loading-orange-t2.gif'>
+    <div class="wrapper center loading" ng-show="loading">
+      <div>Loading...</div>
+      <img src='{{BASEURL}}/img/loading-orange-t2.gif'>
     </div>
 
     <div ng-show="!loading && loggedIn" class='wrapper'>
       <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="100" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-      <h3>Welcome, {{name}}!</h3>
-      <div style="margin: 0 0 10px 10px">
-        <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
-        <hr>
 
+      <div class="heading">
+        <h3>Welcome, {{name}}!</h3>
+        <div>
+          <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="options">
         <div ng-show="showDrop">
           <div style="margin-bottom: 5px">Who's your solar provider?</div>
           <select ng-model="company" ng-options="c for c in companies"></select>
@@ -28,29 +34,41 @@
         <div ng-show="!showDrop">
           <h4 style="margin-bottom: 5px">Welcome {{company}} advocate!</h4>
         </div>
-
         <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
         <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
-
         <button class="btn" ng-disabled="verify(company, company2) || saving" ng-click="saveOptions(company, company2, swFriends, swFoF)">{{saving && 'Updating' || 'Update'}}</button>
       </div>
+
+      <hr>
+
       <div class="action life-event">
           <h3>Share your solar story</h3>
           <p>Do your solar panels make a difference? Share your story with your friends.</p>
           <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
     	</div>
+
+      <hr>
+
       <div class="action request-friends">
           <h3>Invite your friends</h3>
           <p>Have friends with solar? Invite them to join I Like Solar!</p>
           <button class="btn btn-success bottom" ng-click="requestfriends()">Invite Friends</button>
     	</div>
-      <button class= 'btn btn-success' ng-click='solarizePhoto()'>Solarize Your Profile Picture</button>
+
+      <hr>
+
+      <div class="solarize">
+        <h3>Solarize Your Photo!!</h3>
+        <button class="btn btn-success" ng-disabled="solarizing" ng-click='solarizePhoto()'>{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
+        <img ng-src="{{picUrl}}">
+        <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
+      </div>
     </div>
 
     <div ng-show="!loading && !loggedIn" class='wrapper'>
       <h3>Help spread the word about solar!</h3>
       <div class="center">
-        <button class="btn btn-success bottom" ng-disabled="joining" ng-click="login()">{{joining && 'Joining' || 'Join!'}}</button>
+        <button class="btn btn-success" ng-disabled="joining" ng-click="login()">{{joining && 'Joining' || 'Join!'}}</button>
       </div>
     </div>
 
