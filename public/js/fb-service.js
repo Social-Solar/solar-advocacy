@@ -55,6 +55,10 @@ angular.module('i-like-solar').factory('fb',
     function uploadPhoto(url, cb) {
       if (url.indexOf('//local') === 0)
         url = 'http://f.cl.ly/items/3p1S1d1Y2z1n2B0u0c1y/Image%202013.11.25%203%3A47%3A09%20PM.jpeg';
+      if (url.indexOf(':3000') !== -1)
+        url = 'http:' + url;
+      if (url.indexOf(':4000') !== -1)
+        url = 'https:' + url;
       FB.api('/me/photos', 'post', {
         no_story: 1,
         url: url
