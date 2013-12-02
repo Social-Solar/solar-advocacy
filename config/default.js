@@ -1,12 +1,12 @@
 /* jshint node:true */
 module.exports = {
   salsa: {
-    user: 'username-goes-here',
-    pass: 'password-goes-here'
+    user: 'justinpermann@gmail.com',
+    pass: 'solarpower'
   },
   fb: {
-    appId: 'Facebook-app-id-goes-here',
-    secret: 'Facebook-app-secret-goes-here'
+    appId: '582937771761901',
+    secret: '7fceb943ff68b106a94381160f219b49'
   },
   url: {
     http: '//local.seia.org:3000',
