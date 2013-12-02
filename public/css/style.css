@@ -1,7 +1,6 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-color: #ff8200;
 }
 a {
   color: #00b7ff;
@@ -9,19 +8,107 @@ a {
 h3 {
   text-align: center;
 }
+.text {
+  color: #2649af;
+}
 .center {
   text-align: center;
 }
 .wrapper {
   width: 80%;
-  margin-left: 10%;
-  background-color: #fff;
-  border: 2px solid #fff;
-  border-radius: 8px;
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 1000px;
 }
-.bottom {
-  margin-bottom: 10px;
+.loading {
+  padding: 30px;
+  font-size: 20px;
+}
+.loading div {
+  margin-bottom: 20px;
+}
+.solarize img {
+  width: 200px;
+}
+.mBottom {
+  margin-bottom: 5px;
+}
+.milestone-wrapper {
+  margin-left: 30px;
+}
+.milestone-text {
+  display: inline-block;
+  width: 110px;
+  vertical-align: middle;
+}
+.plug {
+  text-align: center;
+  margin: 50px 0 50px;
+}
+.plug img {
+  width: 1000px;
+}
+.double-pane {
+  height: 200px;
+}
+.double-pane.marginTop {
+  margin-top: 40px;
+}
+.double-pane.big-box {
+  height: 400px;
+}
+.first-pane {
+  display: inline-block;
+  width: 450px;
+}
+.second-pane {
+  display: inline-block;
+  width: 450px;
+  float: right;
+  font-size: 24px;
+}
+.arrow {
+  float: right;
+  margin-top: 25px;
+}
+.fb-title {
+  font-size: 30px;
+}
+.fb-login-btn {
+  width: 415px;
+  height: 75px;
+  margin-top: 30px;
+}
+.fb-login-btn:hover {
+  cursor: pointer;
+}
+.title {
+  width: 800px;
+  font-size: 34px;
+}
+.body {
+  margin: 25px 0 25px;
+  font-size: 24px;
+}
+.body-small {
+  margin: 25px 0 25px;
+  font-size: 16px;
 }
 .top {
+  float: right;
+}
+.top:hover {
+  cursor: pointer;
+}
+.solarization-right {
+  float: right;
+  width: 300px;
+  text-align: center;
+}
+.solarization-right button {
   margin-top: 10px;
+}
+.life-event {
+  width: 300px;
+  margin-top: 25px;
 }
