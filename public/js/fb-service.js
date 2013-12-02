@@ -1,6 +1,6 @@
 /* global angular, FB, BASE_URL */
 angular.module('i-like-solar').factory('fb',
-  function ($rootScope) {
+  function ($rootScope, $http) {
     'use strict';
 
     var appId = '582937771761901';
@@ -8,16 +8,9 @@ angular.module('i-like-solar').factory('fb',
     FB.init({
       appId: appId,
       channelUrl: BASE_URL + '/channel.html',
-      status: true
+      status: true,
+      xfbml: true
     });
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = '//connect.facebook.net/en_US/all.js#xfbml=1&appId=' + appId;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
     function getLoginStatus(cb) {
       FB.getLoginStatus(function (res) {
@@ -27,7 +20,7 @@ angular.module('i-like-solar').factory('fb',
     }
 
     function login(cb, perms) {
-      var obj = '';
+      var obj = null;
       if (perms) obj = { scope: perms };
 
       FB.login(function (res) {
@@ -38,6 +31,34 @@ angular.module('i-like-solar').factory('fb',
 
     function getUser(cb) {
       FB.api('/me', function (res) {
+        cb(res);
+        $rootScope.$apply();
+      });
+    }
+
+    function getPhotoUrl(cb) {
+      FB.api('/me/picture', { type: 'large' }, function (res) {
+        cb(res);
+        $rootScope.$apply();
+      });
+    }
+
+    function createPhoto(url, id, cb) {
+      $http.post(BASE_URL + '/createPhoto', {
+        url: url,
+        id: id
+      }).then(function (res) {
+        cb(res.data);
+      });
+    }
+
+    function uploadPhoto(url, cb) {
+      if (url.indexOf('//local') === 0)
+        url = 'http://f.cl.ly/items/3p1S1d1Y2z1n2B0u0c1y/Image%202013.11.25%203%3A47%3A09%20PM.jpeg';
+      FB.api('/me/photos', 'post', {
+        no_story: 1,
+        url: url
+      }, function (res) {
         cb(res);
         $rootScope.$apply();
       });
@@ -55,6 +76,9 @@ angular.module('i-like-solar').factory('fb',
       getLoginStatus: getLoginStatus,
       login:          login,
       getUser:        getUser,
+      getPhotoUrl:    getPhotoUrl,
+      createPhoto:    createPhoto,
+      uploadPhoto:    uploadPhoto,
       ui:             ui
     };
   }

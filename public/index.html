@@ -5,52 +5,175 @@
     <link rel="stylesheet" href="{{BASEURL}}/css/style.css">
   </head>
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
-    <div class="wrapper center" ng-show="loading">
-      <div class="top">Loading</div>
-      <img class="bottom" src='{{BASEURL}}/img/loading-orange-t2.gif'>
+    <div class="wrapper center loading" ng-show="loading">
+      <div>Loading...</div>
+      <img src='{{BASEURL}}/img/loading-orange-t2.gif'>
     </div>
 
-    <div ng-show="!loading && loggedIn" class='wrapper'>
+<!--     <div ng-show="!loading && loggedIn" class='wrapper'>
       <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="100" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-      <h3>Welcome, {{name}}!</h3>
-      <div style="margin: 0 0 10px 10px">
-        <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
-        <hr>
 
+      <div class="heading">
+        <h3>Welcome, {{name}}!</h3>
+        <div>
+          <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="options">
         <div ng-show="showDrop">
-          <div style="margin-bottom: 5px">Who's your solar provider?</div>
+          <div class="mBottom">Who's your solar provider?</div>
           <select ng-model="company" ng-options="c for c in companies"></select>
           <div ng-show="company=='Other'">
-            <div style="margin-bottom: 5px">Not listed? Type their name below</div>
+            <div class="mBottom">Not listed? Type their name below</div>
             <input type="text" ng-model="company2">
           </div>
         </div>
         <div ng-show="!showDrop">
-          <h4 style="margin-bottom: 5px">Welcome {{company}} advocate!</h4>
+          <h4 class="mBottom">Welcome {{company}} advocate!</h4>
         </div>
-
         <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
         <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
-
         <button class="btn" ng-disabled="verify(company, company2) || saving" ng-click="saveOptions(company, company2, swFriends, swFoF)">{{saving && 'Updating' || 'Update'}}</button>
       </div>
-      	<div class="action life-event">
+
+      <hr>
+
+      <div class="action life-event">
           <h3>Share your solar story</h3>
           <p>Do your solar panels make a difference? Share your story with your friends.</p>
           <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
     	</div>
-        <div class="action request-friends">
+
+      <hr>
+
+      <div class="action request-friends">
           <h3>Invite your friends</h3>
           <p>Have friends with solar? Invite them to join I Like Solar!</p>
           <button class="btn btn-success bottom" ng-click="requestfriends()">Invite Friends</button>
     	</div>
-    </div>
 
-    <div ng-show="!loading && !loggedIn" class='wrapper'>
-      <h3>Help spread the word about solar!</h3>
-      <div class="center">
-        <button class="btn btn-success bottom" ng-disabled="joining" ng-click="login()">{{joining && 'Joining' || 'Join!'}}</button>
+      <hr>
+
+      <div class="solarize">
+        <h3>Solarize Your Photo!!</h3>
+        <button class="btn btn-success" ng-disabled="solarizing" ng-click='solarizePhoto()'>{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
+        <img ng-src="{{picUrl}}">
+        <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
       </div>
+    </div> -->
+
+    <div ng-show="!loading" class='wrapper'>
+      <span class="logo">
+        <img ng-src="img/logo.png">
+      </span>
+      <span class="milestone-wrapper">
+        <span ng-repeat="m in milestones">
+          <span class="milestone-pic">
+            <img ng-src="img/{{m.img}}">
+          </span>
+          <span class="milestone-text">{{m.text}}</span>
+        </span>
+      </span>
+      <div class="plug">
+        <img ng-src="img/plug-left.png">
+      </div>
+      <div class="double-pane">
+        <div class="first-pane">
+          <span class="fb-title text">Generate power with a click</span>
+          <img class="arrow" ng-src="img/arrow.png">
+          <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
+        </div>
+        <div class="second-pane">
+          <span class="text">Getting solar was a great idea, right? It is cost effective - and good for the environment. And great ideas deserve to be shared. Share your solar story on Facebook and help multiply solar power in your community.</span>
+        </div>
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-right.png">
+      </div>
+      <div class="title text">How can sharing on Facebook make an impact? Well, we’ve done the math.</div>
+      <div class="body text">You are a solar owner and you have 150 friends (U.S. average), who also have 150 friends. That’s 22,500 friends. So imagine if every U.S. solar owner shared their story. That would be 140,000,000 more people who know the benefits of solar. That is a whole lot of power for just one click.</div>
+      <div class="body text">And even better, research shows that people who know somebody with solar, make the choice to go solar themselves 3x quicker. So by sharing your story on Facebook, you’ll be helping to build a huge solar community - faster.</div>
+      <div class="plug">
+        <img ng-src="img/plug-left.png">
+      </div>
+      <span class="title text">Solarize your profile picture</span>
+      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
+      <div class="solarization">
+        <img ng-src="img/solarization.png">
+        <span class="solarization-right">
+          <img ng-src="{{picUrl}}">
+          <button class="btn btn-success" ng-click='solarizePhoto()' ng-disabled="!loggedIn">{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
+          <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
+        </span>
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-right.png">
+      </div>
+      <span class="title text">Share your solar story</span>
+      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
+
+      <div class="double-pane marginTop">
+        <div class="first-pane">
+          <div class="body text">By adding the day you first got solar as a life event on Facebook, you are inspiring your friends to go solar - and your friends’ friends too.</div>
+          <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="400" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+        </div>
+        <div class="second-pane">
+          <button class="btn btn-success life-event" ng-disabled="!loggedIn" ng-click="postfeed()">Share your solar story</button>
+        </div>
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-left.png">
+      </div>
+      <span class="title text">Invite your friends</span>
+      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
+      <div class="double-pane marginTop">
+        <div class="first-pane">
+          <div class="body text">Great minds think alike. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
+        </div>
+        <div class="second-pane">
+        </div>
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-right.png">
+      </div>
+      <span class="title text">About</span>
+      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
+      <div class="double-pane big-box marginTop">
+        <div class="first-pane">
+          <div class="body text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+        <div class="second-pane">
+          <div class="body text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+      </div>
+      <div class="company-wrapper">
+        <img src="img/companies.png">
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-left.png">
+      </div>
+      <span class="title text">T&Cs</span>
+      <div class="double-pane">
+        <div class="first-pane">
+          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+        <div class="second-pane">
+          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+      </div>
+      <span class="title text">FAQs</span>
+      <div class="double-pane">
+        <div class="first-pane">
+          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+        <div class="second-pane">
+          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+        </div>
+      </div>
+
     </div>
 
     <div class="all-alerts">

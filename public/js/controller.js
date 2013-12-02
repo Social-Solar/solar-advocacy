@@ -1,7 +1,8 @@
-/* global angular, console */
+/* global angular, console, BASE_URL */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, $location, $timeout, fb, salsa) {
+  function ($scope, $location, $timeout, $window, fb, salsa) {
     'use strict';
+
     $scope.alerts    = [];
     $scope.company   = $location.search().company;
     $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
@@ -11,6 +12,19 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.showDrop  = $scope.company ? false : true;
     $scope.loggedIn  = false;
     $scope.loading   = true;
+
+    $scope.milestones = [{
+      img: 'ms1-filled.png',
+      text: 'Sign in with Facebook'
+    },{
+      img: 'ms2.png',
+      text: 'Solarize your profile picture'
+    },{
+      img: 'ms3.png',
+      text: 'Share your solar story'
+    }];
+
+    $scope.picUrl = BASE_URL + '/img/profile.jpg';
 
     var id, token;
 
@@ -23,6 +37,10 @@ angular.module('i-like-solar').controller('fbCtrl',
       }
     });
 
+    $scope.scrollToTop = function() {
+      $window.scrollTo($window.scrollX, 0);
+    };
+
     $scope.login = function () {
       $scope.joining = true;
       fb.login(function (res) {
@@ -30,14 +48,16 @@ angular.module('i-like-solar').controller('fbCtrl',
         if (res.authResponse) {
           id = res.authResponse.userID;
           token = res.authResponse.accessToken;
-          loadApp();
-          createAlert('success', 'Congrats! Thanks for joining!');
+          $scope.loggedIn = true;
+          //loadApp();
+          // createAlert('success', 'Congrats! Thanks for joining!');
         } else {
           $scope.joining = false;
-          createAlert('error', 'Oops, Something went wrong. Try again!');
+          // createAlert('error', 'Oops, Something went wrong. Try again!');
         }
-      });
+      }, 'publish_actions');
     };
+
 	$scope.postfeed = function(){
 		var publish = {
         method: 'feed',
@@ -53,11 +73,14 @@ angular.module('i-like-solar').controller('fbCtrl',
 		fb.ui(publish,  function(res){
 			if (res && res.post_id) {
           createAlert('success', 'Your post was successful');
+          $scope.milestones[2].img = 'ms3-filled.png';
+          $scope.$apply();
       } else {
 				createAlert('error', 'Oops, Something went wrong. Try again!');
 			}
 		});
 	};
+
 	$scope.requestfriends = function(){
 		var publish = {
       method: 'apprequests',
@@ -74,6 +97,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       }
 		});
 	};
+
     $scope.verify = function (company, company2) {
       return company === 'Other' ? !company2 : !company;
     };
@@ -100,6 +124,24 @@ angular.module('i-like-solar').controller('fbCtrl',
       });
     };
 
+    $scope.solarizePhoto = function () {
+      $scope.solarizing = true;
+      fb.getPhotoUrl(function (res) {
+        var url = res.data.url;
+        fb.createPhoto(url, $scope.userId, function (data) {
+          var picUrl = BASE_URL + data.url;
+          $scope.picUrl = picUrl;
+          fb.uploadPhoto(picUrl, function (resp) {
+            $scope.solarizing = false;
+            if (resp.error) return createAlert('error', resp.error.message);
+            $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
+            $scope.milestones[1].img = 'ms2-filled.png';
+            $scope.$apply();
+          });
+        });
+      });
+    };
+
     function loadApp() {
       var gotName = false;
       var gotOptions = false;
@@ -107,6 +149,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       $scope.loggedIn = true;
       $scope.loading = true;
       fb.getUser(function (res) {
+        $scope.userId = res.id || null;
         $scope.name = res.first_name || res.name;
         gotName = true;
         if (gotOptions) $scope.loading = false;
