@@ -18,7 +18,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       text: 'Sign in with Facebook'
     },{
       img: 'ms2.png',
-      text: 'Solarize your profile picture'
+      text: 'Solarize your profile'
     },{
       img: 'ms3.png',
       text: 'Share your solar story'
@@ -49,7 +49,7 @@ angular.module('i-like-solar').controller('fbCtrl',
           id = res.authResponse.userID;
           token = res.authResponse.accessToken;
           $scope.loggedIn = true;
-          //loadApp();
+          loadApp();
           // createAlert('success', 'Congrats! Thanks for joining!');
         } else {
           $scope.joining = false;
@@ -147,23 +147,23 @@ angular.module('i-like-solar').controller('fbCtrl',
       var gotOptions = false;
 
       $scope.loggedIn = true;
-      $scope.loading = true;
-      fb.getUser(function (res) {
-        $scope.userId = res.id || null;
-        $scope.name = res.first_name || res.name;
-        gotName = true;
-        if (gotOptions) $scope.loading = false;
-      });
+      $scope.loading = false;
+      // fb.getUser(function (res) {
+      //   $scope.userId = res.id || null;
+      //   $scope.name = res.first_name || res.name;
+      //   gotName = true;
+      //   if (gotOptions) $scope.loading = false;
+      // });
 
-      salsa.getOptions({ id: id, token: token }, function (err, data) {
-        gotOptions = true;
-        if (gotName) $scope.loading = false;
-        if (err) return console.error(err);
-        $scope.company = data.company;
+      // salsa.getOptions({ id: id, token: token }, function (err, data) {
+      //   gotOptions = true;
+      //   if (!gotName) $scope.loading = false;
+      //   if (err) return console.error(err);
+      //   $scope.company = data.company;
 
-        $scope.swFriends = data.privacy.friends;
-        $scope.swFoF = data.privacy.friendsOfFriends;
-      });
+      //   $scope.swFriends = data.privacy.friends;
+      //   $scope.swFoF = data.privacy.friendsOfFriends;
+      // });
     }
 
     function createAlert(type, msg) {
