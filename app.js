@@ -22,8 +22,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-console.log(app.get('env'));
-
 fs.readdirSync(__dirname + '/routes').forEach(function (file) {
   require('./routes/' + file)(app);
 });
