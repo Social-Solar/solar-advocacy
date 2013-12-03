@@ -106,7 +106,6 @@ angular.module('i-like-solar').controller('fbCtrl',
     };
 
     $scope.saveOptions = function (company, company2, swFriends, swFoF, source) {
-      console.log(source);
       $scope.saving = true;
       var obj = {
         id:      id,
