@@ -83,18 +83,18 @@ angular.module('i-like-solar').controller('fbCtrl',
 
 	$scope.requestfriends = function(){
 		var publish = {
-      method: 'apprequests',
-      message: 'Do your solar panels make a difference? Come and share your story on the I Like Solar page.',
-      title: 'Tell your friends about I Like Solar.'
+		  method: 'apprequests',
+		  message: 'Do your solar panels make a difference? Please join I LIKE SOLAR to share the benefits of your solar with your friends.',
+		  title: 'Invite your friends with solar to share their solar story'
 		};
 		fb.ui(publish,  function(res){
 			 if (res.request && res.to) {
-        var numFriends = res.to.length;
-        var f = numFriends >= 2 ? ' friends' : ' friend';
-        createAlert('success', 'Your request was sent to '+numFriends+f+'.');
-      } else {
-        createAlert('error', 'Oops, Something went wrong. Try again!');
-      }
+				var numFriends = res.to.length;
+				var f = numFriends >= 2 ? ' friends' : ' friend';
+				createAlert('success', 'Your request was sent to '+numFriends+f+'.');
+			  } else {
+				createAlert('error', 'Oops, Something went wrong. Try again!');
+			  }
 		});
 	};
 
