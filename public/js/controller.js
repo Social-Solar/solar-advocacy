@@ -1,15 +1,18 @@
 /* global angular, console, BASE_URL */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, $location, $timeout, $window, fb, salsa) {
+  function ($scope, $location, $timeout, $modal, $window, fb, salsa) {
     'use strict';
 
     $scope.alerts    = [];
+    $scope.signedUp  = false;
     $scope.company   = $location.search().company;
-    $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
+    $scope.source    = $location.search().source;
+
+    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
     }
-    $scope.showDrop  = $scope.company ? false : true;
+    $scope.showDrop  = $scope.company === null ? true : false;
     $scope.loggedIn  = false;
     $scope.loading   = true;
 
@@ -50,10 +53,6 @@ angular.module('i-like-solar').controller('fbCtrl',
           token = res.authResponse.accessToken;
           $scope.loggedIn = true;
           loadApp();
-
-          // $modal.open({
-          //   templateUrl: 'permissions.html'
-          // });
           createAlert('success', 'Congrats! Thanks for joining!');
         } else {
           $scope.joining = false;
@@ -106,12 +105,14 @@ angular.module('i-like-solar').controller('fbCtrl',
       return company === 'Other' ? !company2 : !company;
     };
 
-    $scope.saveOptions = function (company, company2, swFriends, swFoF) {
+    $scope.saveOptions = function (company, company2, swFriends, swFoF, source) {
+      console.log(source);
       $scope.saving = true;
       var obj = {
         id:      id,
         token:   token,
         company: company !== 'Other' ? company : company2,
+        source:  source,
         privacy: {
           friends: swFriends,
           friendsOfFriends: swFoF
@@ -124,6 +125,7 @@ angular.module('i-like-solar').controller('fbCtrl',
           createAlert('error', 'Oops, something went wrong.');
           return console.error(err);
         }
+        $scope.permissionModal.close();
         createAlert('success', 'Your info has been saved!');
       });
     };
@@ -151,23 +153,31 @@ angular.module('i-like-solar').controller('fbCtrl',
       var gotOptions = false;
 
       $scope.loggedIn = true;
-      $scope.loading = false;
-      // fb.getUser(function (res) {
-      //   $scope.userId = res.id || null;
-      //   $scope.name = res.first_name || res.name;
-      //   gotName = true;
-      //   if (gotOptions) $scope.loading = false;
-      // });
+      // $scope.loading = false;
+      fb.getUser(function (res) {
+        $scope.userId = res.id || null;
+        $scope.name = res.first_name || res.name;
+        gotName = true;
+        $scope.signedUp = true;
+        if (gotOptions) $scope.loading = false;
+      });
 
-      // salsa.getOptions({ id: id, token: token }, function (err, data) {
-      //   gotOptions = true;
-      //   if (!gotName) $scope.loading = false;
-      //   if (err) return console.error(err);
-      //   $scope.company = data.company;
+      salsa.getOptions({ id: id, token: token }, function (err, data) {
+        gotOptions = true;
+        if (!gotName) $scope.loading = false;
+        if (err) return showModal();
+        $scope.company = data.company;
 
-      //   $scope.swFriends = data.privacy.friends;
-      //   $scope.swFoF = data.privacy.friendsOfFriends;
-      // });
+        $scope.swFriends = data.privacy.friends;
+        $scope.swFoF = data.privacy.friendsOfFriends;
+      });
+    }
+
+    function showModal() {
+      $scope.permissionModal = $modal.open({
+        templateUrl: 'permissions.html',
+        scope: $scope
+      });
     }
 
     function createAlert(type, msg) {

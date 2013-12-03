@@ -1,2 +1,2 @@
 /* global angular */
-angular.module('i-like-solar', []);
+angular.module('i-like-solar', ['ui.bootstrap']);

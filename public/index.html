@@ -9,62 +9,6 @@
       <div>Loading...</div>
       <img src='{{BASEURL}}/img/loading-orange-t2.gif'>
     </div>
-
-<!--     <div ng-show="!loading && loggedIn" class='wrapper'>
-      <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="100" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-
-      <div class="heading">
-        <h3>Welcome, {{name}}!</h3>
-        <div>
-          <p class='center'>We're glad you chose to become a solar advocate! Please give us just a bit more information.</p>
-        </div>
-      </div>
-
-      <hr>
-
-      <div class="options">
-        <div ng-show="showDrop">
-          <div class="mBottom">Who's your solar provider?</div>
-          <select ng-model="company" ng-options="c for c in companies"></select>
-          <div ng-show="company=='Other'">
-            <div class="mBottom">Not listed? Type their name below</div>
-            <input type="text" ng-model="company2">
-          </div>
-        </div>
-        <div ng-show="!showDrop">
-          <h4 class="mBottom">Welcome {{company}} advocate!</h4>
-        </div>
-        <label class="checkbox"><input type="checkbox" ng-model="swFriends"> Share with Friends</label>
-        <label class="checkbox"><input type="checkbox" ng-model="swFoF"> Share with Friends of Friends</label>
-        <button class="btn" ng-disabled="verify(company, company2) || saving" ng-click="saveOptions(company, company2, swFriends, swFoF)">{{saving && 'Updating' || 'Update'}}</button>
-      </div>
-
-      <hr>
-
-      <div class="action life-event">
-          <h3>Share your solar story</h3>
-          <p>Do your solar panels make a difference? Share your story with your friends.</p>
-          <button class="btn btn-success bottom" ng-click="postfeed()">Share your story</button>
-    	</div>
-
-      <hr>
-
-      <div class="action request-friends">
-          <h3>Invite your friends</h3>
-          <p>Have friends with solar? Invite them to join I Like Solar!</p>
-          <button class="btn btn-success bottom" ng-click="requestfriends()">Invite Friends</button>
-    	</div>
-
-      <hr>
-
-      <div class="solarize">
-        <h3>Solarize Your Photo!!</h3>
-        <button class="btn btn-success" ng-disabled="solarizing" ng-click='solarizePhoto()'>{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
-        <img ng-src="{{picUrl}}">
-        <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
-      </div>
-    </div> -->
-
     <div ng-show="!loading" class='wrapper'>
       <span class="logo">
         <img ng-src="img/logo.png">
@@ -82,9 +26,14 @@
       </div>
       <div class="double-pane">
         <div class="first-pane">
-          <span class="fb-title text">Generate power with a click</span>
-          <img class="arrow" ng-src="img/arrow.png">
-          <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
+          <div ng-show="signedUp">
+            <span class="fb-title text">Welcome {{name}}!</span>
+          </div>
+          <div ng-show="!signedUp">
+            <span class="fb-title text">Generate power with a click</span>
+            <img class="arrow" ng-src="img/arrow.png">
+            <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
+          </div>
         </div>
         <div class="second-pane">
           <span class="text">Getting solar was a great idea, right? It is cost effective - and good for the environment. And great ideas deserve to be shared. Share your solar story on Facebook and help multiply solar power in your community.</span>
@@ -144,13 +93,17 @@
       </div>
       <span class="title text">Solarize your profile</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-      <div class="solarization">
-        <img ng-src="img/solarization.png">
-        <span class="solarization-right">
+      <div class="double-pane marginBottom">
+        <div class="first-pane">
+          <img ng-src="img/solarization.png">
+        </div>
+        <div class="second-pane solarize">
           <img ng-src="{{picUrl}}">
-          <button class="btn btn-success" ng-click='solarizePhoto()' ng-disabled="!loggedIn">{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
-          <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
-        </span>
+          <div class="center">
+            <button class="btn btn-success" ng-click='solarizePhoto()' ng-disabled="!loggedIn">{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
+            <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
+          </div>
+        </div>
       </div>
       <div class="plug">
         <img ng-src="img/plug-right.png">

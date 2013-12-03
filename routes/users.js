@@ -56,7 +56,8 @@ function postUser(req, res) {
     id:      data.id + '@koobecaf.com',
     token:   data.token,
     company: data.company,
-    privacy: JSON.stringify(data.privacy)
+    privacy: JSON.stringify(data.privacy),
+    source:  data.source
   };
   salsa.save(user, function (err) {
     if (err) return _fail(res, err);
