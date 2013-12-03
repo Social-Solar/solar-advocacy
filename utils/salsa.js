@@ -110,7 +110,6 @@ function _findUser(key, jar, cb) {
 }
 
 function _createUser(user, groupKey, jar, cb) {
-  console.log(user.source);
   request({
     url: apiUrl + 'save',
     method: 'POST',
