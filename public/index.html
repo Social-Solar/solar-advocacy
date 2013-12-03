@@ -94,8 +94,51 @@
         <img ng-src="img/plug-right.png">
       </div>
       <div class="title text">How can sharing on Facebook make an impact? Well, we’ve done the math.</div>
-      <div class="body text">You are a solar owner and you have 150 friends (U.S. average), who also have 150 friends. That’s 22,500 friends. So imagine if every U.S. solar owner shared their story. That would be 140,000,000 more people who know the benefits of solar. That is a whole lot of power for just one click.</div>
-      <div class="body text">And even better, research shows that people who know somebody with solar, make the choice to go solar themselves 3x quicker. So by sharing your story on Facebook, you’ll be helping to build a huge solar community - faster.</div>
+      <div class="body text spacing">You are a solar owner and you have
+        <span class="num-wrapper">
+          <img src="img/1.png">
+          <img src="img/5.png">
+          <img src="img/0.png">
+        </span>
+        friends (U.S. average), who also have
+        <span class="num-wrapper">
+          <img src="img/1.png">
+          <img src="img/5.png">
+          <img src="img/0.png">
+        </span>
+      friends. That’s
+        <span class="num-wrapper">
+          <img src="img/2.png">
+          <img src="img/2.png">
+          <img class="comma" src="img/comma.png">
+          <img src="img/5.png">
+          <img src="img/0.png">
+          <img src="img/0.png">
+        </span>
+         friends. So imagine if every U.S. solar owner shared their story. That would be
+        <span class="num-wrapper">
+          <img src="img/1.png">
+          <img src="img/4.png">
+          <img src="img/0.png">
+          <img class="comma" src="img/comma.png">
+          <img src="img/0.png">
+          <img src="img/0.png">
+          <img src="img/0.png">
+          <img class="comma" src="img/comma.png">
+          <img src="img/0.png">
+          <img src="img/0.png">
+          <img src="img/0.png">
+        </span>
+         more people who know the benefits of solar. That is a whole lot of power for just one click.
+      </div>
+      <div class="body text spacing">
+         And even better, research shows that people who know somebody with solar, make the choice to go solar themselves
+        <span class="num-wrapper">
+          <img src="img/3.png">
+          <img src="img/x.png">
+        </span>
+         quicker. So by sharing your story on Facebook, you’ll be helping to build a huge solar community - faster.
+      </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
@@ -121,7 +164,7 @@
           <!-- <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="400" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> -->
         </div>
         <div class="second-pane">
-          <button class="btn btn-success life-event" ng-disabled="!loggedIn" ng-click="postfeed()">Share your solar story</button>
+          <button class="btn btn-success fb-event" ng-disabled="!loggedIn" ng-click="postfeed()">Share your solar story</button>
         </div>
       </div>
       <div class="plug">
@@ -134,11 +177,24 @@
           <div class="body text">Great minds think alike. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
         </div>
         <div class="second-pane">
-          <button class="btn btn-success bottom" ng-disabled="!loggedIn" ng-click="requestfriends()">Invite Friends</button>
+          <button class="btn btn-success fb-event" ng-disabled="!loggedIn" ng-click="requestfriends()">Invite Friends</button>
         </div>
       </div>
       <div class="plug">
         <img ng-src="img/plug-right.png">
+      </div>
+      <span class="title text">Join the conversation</span>
+      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
+      <div class="double-pane marginTop">
+        <div class="first-pane">
+          <div class="body text">We are building a solar Facebook community – please visit, Like and share your solar story at the I like Solar Facebook Page to show the power of rooftop solar.</div>
+        </div>
+        <div class="second-pane">
+          <button class="btn btn-success fb-event">Visit "I Like Solar" Facebook Page</button>
+        </div>
+      </div>
+      <div class="plug">
+        <img ng-src="img/plug-left.png">
       </div>
       <span class="title text">About</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">

@@ -50,7 +50,11 @@ angular.module('i-like-solar').controller('fbCtrl',
           token = res.authResponse.accessToken;
           $scope.loggedIn = true;
           loadApp();
-          // createAlert('success', 'Congrats! Thanks for joining!');
+
+          // $modal.open({
+          //   templateUrl: 'permissions.html'
+          // });
+          createAlert('success', 'Congrats! Thanks for joining!');
         } else {
           $scope.joining = false;
           // createAlert('error', 'Oops, Something went wrong. Try again!');
@@ -64,7 +68,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         message: 'Share your solar story',
         name: 'Share your solar story',
         caption: 'http://facebook.com/ilikesolar',
-        description: (  'Do your solar panels make a difference? Share your story with your friends.'),
+        description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
         link: 'http://facebook.com/ilikesolar/',
         //picture: 'http://www.fbrell.com/public/f8.jpg',
         user_message_prompt: 'Share your thoughts about solar'
@@ -84,7 +88,7 @@ angular.module('i-like-solar').controller('fbCtrl',
 	$scope.requestfriends = function(){
 		var publish = {
       method: 'apprequests',
-      message: 'Do your solar panels make a difference? Come and share your story on the I Like Solar page.',
+      message: 'Great minds think alike. It’s likely that you have friends with solar. Suggest this app to them so they can share they have solar too.',
       title: 'Tell your friends about I Like Solar.'
 		};
 		fb.ui(publish,  function(res){
