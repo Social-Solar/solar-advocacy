@@ -8,3 +8,10 @@ config/local.js
 config/production.js
 config/localdev.js
 config/runtime.json
+
+certs/certificate.pem
+certs/privatekey.pem
+certsBackup/
+
+solaradv.log
+solarized/

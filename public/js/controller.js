@@ -1,15 +1,18 @@
 /* global angular, console, BASE_URL */
 angular.module('i-like-solar').controller('fbCtrl',
-  function ($scope, $location, $timeout, $window, fb, salsa) {
+  function ($scope, $location, $timeout, $modal, $window, fb, salsa) {
     'use strict';
 
     $scope.alerts    = [];
+    $scope.signedUp  = false;
     $scope.company   = $location.search().company;
-    $scope.companies = ['Vivint', 'Sungevity', 'Enphase', 'Other'];
+    $scope.source    = $location.search().source;
+
+    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
     }
-    $scope.showDrop  = $scope.company ? false : true;
+    $scope.showDrop  = $scope.company === null ? true : false;
     $scope.loggedIn  = false;
     $scope.loading   = true;
 
@@ -18,7 +21,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       text: 'Sign in with Facebook'
     },{
       img: 'ms2.png',
-      text: 'Solarize your profile picture'
+      text: 'Solarize your profile'
     },{
       img: 'ms3.png',
       text: 'Share your solar story'
@@ -49,8 +52,8 @@ angular.module('i-like-solar').controller('fbCtrl',
           id = res.authResponse.userID;
           token = res.authResponse.accessToken;
           $scope.loggedIn = true;
-          //loadApp();
-          // createAlert('success', 'Congrats! Thanks for joining!');
+          loadApp();
+          createAlert('success', 'Congrats! Thanks for joining!');
         } else {
           $scope.joining = false;
           // createAlert('error', 'Oops, Something went wrong. Try again!');
@@ -64,7 +67,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         message: 'Share your solar story',
         name: 'Share your solar story',
         caption: 'http://facebook.com/ilikesolar',
-        description: (  'Do your solar panels make a difference? Share your story with your friends.'),
+        description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
         link: 'http://facebook.com/ilikesolar/',
         //picture: 'http://www.fbrell.com/public/f8.jpg',
         user_message_prompt: 'Share your thoughts about solar'
@@ -102,12 +105,13 @@ angular.module('i-like-solar').controller('fbCtrl',
       return company === 'Other' ? !company2 : !company;
     };
 
-    $scope.saveOptions = function (company, company2, swFriends, swFoF) {
+    $scope.saveOptions = function (company, company2, swFriends, swFoF, source) {
       $scope.saving = true;
       var obj = {
         id:      id,
         token:   token,
         company: company !== 'Other' ? company : company2,
+        source:  source,
         privacy: {
           friends: swFriends,
           friendsOfFriends: swFoF
@@ -120,6 +124,7 @@ angular.module('i-like-solar').controller('fbCtrl',
           createAlert('error', 'Oops, something went wrong.');
           return console.error(err);
         }
+        $scope.permissionModal.close();
         createAlert('success', 'Your info has been saved!');
       });
     };
@@ -147,22 +152,30 @@ angular.module('i-like-solar').controller('fbCtrl',
       var gotOptions = false;
 
       $scope.loggedIn = true;
-      $scope.loading = true;
+      // $scope.loading = false;
       fb.getUser(function (res) {
         $scope.userId = res.id || null;
         $scope.name = res.first_name || res.name;
         gotName = true;
+        $scope.signedUp = true;
         if (gotOptions) $scope.loading = false;
       });
 
       salsa.getOptions({ id: id, token: token }, function (err, data) {
         gotOptions = true;
-        if (gotName) $scope.loading = false;
-        if (err) return console.error(err);
+        if (!gotName) $scope.loading = false;
+        if (err) return showModal();
         $scope.company = data.company;
 
         $scope.swFriends = data.privacy.friends;
         $scope.swFoF = data.privacy.friendsOfFriends;
+      });
+    }
+
+    function showModal() {
+      $scope.permissionModal = $modal.open({
+        templateUrl: 'permissions.html',
+        scope: $scope
       });
     }
 

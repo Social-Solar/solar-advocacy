@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Rokkit;
+  src: url("../font/Rokkitt.otf");
+}
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -10,15 +14,15 @@ h3 {
 }
 .text {
   color: #2649af;
+  font-family: Rokkit;
 }
 .center {
   text-align: center;
 }
 .wrapper {
-  width: 80%;
   margin: 0 auto;
   padding: 30px;
-  max-width: 1000px;
+  width: 1000px;
 }
 .loading {
   padding: 30px;
@@ -27,8 +31,14 @@ h3 {
 .loading div {
   margin-bottom: 20px;
 }
+.solarize {
+  text-align: center;
+}
 .solarize img {
   width: 200px;
+}
+.solarize button {
+  margin-top: 10px;
 }
 .mBottom {
   margin-bottom: 5px;
@@ -57,6 +67,9 @@ h3 {
 .double-pane.big-box {
   height: 400px;
 }
+.double-pane.marginBottom {
+  margin-bottom: 100px;
+}
 .first-pane {
   display: inline-block;
   width: 450px;
@@ -72,7 +85,7 @@ h3 {
   margin-top: 25px;
 }
 .fb-title {
-  font-size: 30px;
+  font-size: 38px;
 }
 .fb-login-btn {
   width: 415px;
@@ -84,11 +97,14 @@ h3 {
 }
 .title {
   width: 800px;
-  font-size: 34px;
+  font-size: 40px;
 }
 .body {
   margin: 25px 0 25px;
   font-size: 24px;
+}
+.spacing {
+  line-height: 200%;
 }
 .body-small {
   margin: 25px 0 25px;
@@ -100,15 +116,20 @@ h3 {
 .top:hover {
   cursor: pointer;
 }
-.solarization-right {
-  float: right;
-  width: 300px;
-  text-align: center;
-}
-.solarization-right button {
-  margin-top: 10px;
-}
-.life-event {
+.fb-event {
   width: 300px;
   margin-top: 25px;
+}
+.all-alerts {
+  position: fixed;
+  top: 0;
+}
+.comma {
+  margin-top: 24px;
+}
+.num-wrapper {
+  margin: 0 10px 0 10px;
+}
+.options {
+  margin: 20px 20px 20px 20px;
 }

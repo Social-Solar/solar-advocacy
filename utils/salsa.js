@@ -120,6 +120,7 @@ function _createUser(user, groupKey, jar, cb) {
       solar_company:     user.company,
       supporter_groups:  groupKey,
       privacy_settings2: user.privacy,
+      adsource:          user.source,
       link:              'chapter',
       linkKey:           salsaChapterKey,
       json:              true
