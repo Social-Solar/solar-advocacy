@@ -85,7 +85,7 @@ angular.module('i-like-solar').controller('fbCtrl',
 		var publish = {
 		  method: 'apprequests',
 		  message: 'Do your solar panels make a difference? Please join I LIKE SOLAR to share the benefits of your solar with your friends.',
-		  title: 'Invite your friends with solar to share their solar story'
+		  title: 'Invite your friends with solar to I LIKE SOLAR'
 		};
 		fb.ui(publish,  function(res){
 			 if (res.request && res.to) {
