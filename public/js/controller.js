@@ -63,14 +63,13 @@ angular.module('i-like-solar').controller('fbCtrl',
 
 	$scope.postfeed = function(){
 		var publish = {
-        method: 'feed',
-        message: 'Share your solar story',
-        name: 'Share your solar story',
-        caption: 'http://facebook.com/ilikesolar',
-        description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
-        link: 'http://facebook.com/ilikesolar/',
-        //picture: 'http://www.fbrell.com/public/f8.jpg',
-        user_message_prompt: 'Share your thoughts about solar'
+         method: 'feed',
+		 name: 'I LIKE SOLAR',
+		 link: 'https://apps.facebook.com/i_like_solar/',
+		 picture: 'http://fbrell.com/f8.jpg',
+		 caption: 'Share your story',
+		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
+        //picture: 'http://www.fbrell.com/public/f8.jpg'
 		};
 
 		fb.ui(publish,  function(res){
