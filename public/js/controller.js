@@ -8,6 +8,9 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.company   = $location.search().company;
     $scope.source    = $location.search().source;
 
+    $scope.profileSolarized = false;
+    $scope.coverSolarized   = false;
+
     $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
@@ -27,7 +30,8 @@ angular.module('i-like-solar').controller('fbCtrl',
       text: 'Share your solar story'
     }];
 
-    $scope.picUrl = BASE_URL + '/img/profile.jpg';
+    $scope.profileUrl = BASE_URL + '/img/profile.jpg';
+    $scope.coverUrl   = BASE_URL + '/img/example-cover.png';
 
     var id, token;
 
@@ -61,7 +65,8 @@ angular.module('i-like-solar').controller('fbCtrl',
       }, 'publish_actions');
     };
 
-	$scope.postfeed = function(){
+	$scope.postFeed = function(){
+    if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
 		var publish = {
         method: 'feed',
         message: 'Share your solar story',
@@ -84,7 +89,8 @@ angular.module('i-like-solar').controller('fbCtrl',
 		});
 	};
 
-	$scope.requestfriends = function(){
+	$scope.requestFriends = function(){
+    if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
 		var publish = {
 		  method: 'apprequests',
 		  message: 'Do your solar panels make a difference? Please join I LIKE SOLAR to share the benefits of your solar with your friends.',
@@ -129,21 +135,38 @@ angular.module('i-like-solar').controller('fbCtrl',
       });
     };
 
-    $scope.solarizePhoto = function () {
-      $scope.solarizing = true;
-      fb.getPhotoUrl(function (res) {
-        var url = res.data.url;
-        fb.createPhoto(url, $scope.userId, function (data) {
+    function solarizeProfilePhoto() {
+      fb.getProfileUrl(function (res) {
+        var profileUrl = res.data.url;
+        fb.createProfilePhoto(profileUrl, $scope.userId, function (data) {
           var picUrl = BASE_URL + data.url;
-          $scope.picUrl = picUrl;
-          fb.uploadPhoto(picUrl, function (resp) {
-            $scope.solarizing = false;
-            if (resp.error) return createAlert('error', resp.error.message);
-            $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
-            $scope.milestones[1].img = 'ms2-filled.png';
-            $scope.$apply();
-          });
+          $scope.profileUrl = picUrl;
         });
+      });
+    }
+
+    function solarizeCoverPhoto() {
+      fb.getCoverUrl(function (res) {
+        var coverUrl = res.cover.source;
+        fb.createCoverPhoto(coverUrl, $scope.userId, function (data) {
+          var picUrl = BASE_URL + data.url;
+          $scope.coverUrl = picUrl;
+        });
+      });
+    }
+
+    $scope.uploadToFacebook = function(picture) {
+      if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
+      $scope[picture + 'Uploading'] = true;
+      var img = picture === 'profile' ? $scope.profileUrl : $scope.coverUrl;
+      fb.uploadPhoto($scope.profileUrl, function (resp) {
+        if (resp.error) return createAlert('error', resp.error.message);
+        $scope[picture + 'Solarized'] = true;
+        $scope.uploading = false;
+        $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
+        $scope.milestones[1].img = 'ms2-filled.png';
+        createAlert('success', 'Profile photo successfully uploaded!');
+        $scope.$apply();
       });
     };
 
@@ -158,6 +181,8 @@ angular.module('i-like-solar').controller('fbCtrl',
         $scope.name = res.first_name || res.name;
         gotName = true;
         $scope.signedUp = true;
+        solarizeProfilePhoto();
+        solarizeCoverPhoto();
         if (gotOptions) $scope.loading = false;
       });
 
@@ -178,6 +203,13 @@ angular.module('i-like-solar').controller('fbCtrl',
         scope: $scope
       });
     }
+
+    $scope.unsubscribe = function() {
+      salsa.deleteUser($scope.userId, function(err) {
+        if (err) return createAlert('error', 'User does not exist or was not removed.');
+        createAlert('success', 'You have successfully unsubscribed.');
+      });
+    };
 
     function createAlert(type, msg) {
       var alert = {

@@ -3,13 +3,15 @@ body
   padding: 50px
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
 a
-  color: #00B7FF
+  color: #336699
+  &:hover
+    color: #4C99E5
 
 h3
   text-align: center
 
 .text
-  color: rgb(38, 73, 175)
+  color: #336699
   font-family: Rokkit
 
 .center
@@ -20,7 +22,8 @@ h3
   margin: 0 auto
   padding: 30px
   // background-color: gray
-  width: 1000px
+  max-width: 1000px
+  width: 80%
 
 .loading
   padding: 30px
@@ -28,13 +31,6 @@ h3
 
   div
     margin-bottom: 20px
-
-.solarize
-  text-align: center
-  img
-    width: 200px
-  button
-    margin-top: 10px
 
 .mBottom
   margin-bottom: 5px
@@ -44,7 +40,8 @@ h3
 
 .milestone-text
   display: inline-block
-  width: 110px
+  max-width: 110px
+  width: 10%
   vertical-align: middle
 
 .plug
@@ -61,16 +58,28 @@ h3
     height: 400px
   &.marginBottom
     margin-bottom: 100px
+  &.small-box
+    height: 100px
+  &.medium-box
+    height: 300px
+  &.solarize-btns
+    margin-top: 150px
+
+.img-click
+  &:hover
+    cursor: pointer
 
 .first-pane
   display: inline-block
-  width: 450px
+  width: 47%
 
 .second-pane
   display: inline-block
-  width: 450px
+  width: 45%
   float: right
   font-size: 24px
+  &.right
+    text-align: right
 
 .arrow
   float: right
@@ -122,6 +131,34 @@ h3
 
 .options
   margin: 20px 20px 20px 20px
+
+.visit-btn
+  background-image: url("../img/visit.png")
+
+.company-wrapper
+  img
+    width: 100%
+
+.solarized-examples
+  min-width: 851px
+  margin-bottom: 75px
+  .profile-pic
+    position: absolute
+    margin: 215px 0 0 25px
+    width: 160px
+    height: 160px
+  .cover-pic
+    width: 851px
+    height: 315px
+
+.center
+  text-align: center
+
+.steps
+  margin-left: 75px
+
+.small-text
+  margin: 15px 0 15px 0
 
 
 

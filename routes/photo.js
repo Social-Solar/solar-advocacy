@@ -6,27 +6,34 @@ var request = require('request'),
          fs = require('fs');
 
 module.exports = function(app) {
-  app.post('/createPhoto', createPhoto);
-  app.get('/solarized/:name', getPhoto);
+  app.post('/createProfilePhoto',     createProfile);
+  app.post('/createCoverPhoto',       createCover);
+  app.get('/solarized/profile/:name', getProfile);
+  app.get('/solarized/cover/:name',   getCover);
 };
 
-function getPhoto(req, res) {
+function getProfile(req, res) {
   // maybe check id right here
-
-  var url = 'solarized/' + req.params.name;
+  var url = 'solarized/profile/' + req.params.name;
   res.sendfile(url);
 }
 
-function createPhoto(req, res) {
+function getCover(req, res) {
+  // maybe check id right here
+  var url = 'solarized/cover/' + req.params.name;
+  res.sendfile(url);
+}
+
+function createProfile(req, res) {
   // maybe check id right here
 
-  var file = process.cwd() + '/solarized/' + req.body.id + '.jpg';
+  var file = process.cwd() + '/solarized/profile/' + req.body.id + '.jpg';
   var ws = fs.createWriteStream(file);
 
   request(req.body.url).pipe(ws);
 
   ws.on('close', function () {
-    _solarize(file, function (err) {
+    _solarizeProfile(file, function (err) {
       if (err) {
         res.send({
           success: false,
@@ -35,15 +42,39 @@ function createPhoto(req, res) {
       } else {
         res.send({
           success: true,
-          url: '/solarized/' + req.body.id + '.jpg'
+          url: '/solarized/profile/' + req.body.id + '.jpg'
         });
       }
     });
   });
 }
 
+function createCover(req, res) {
+  // maybe check id right here
 
-function _solarize(file, cb) {
+  var file = process.cwd() + '/solarized/cover/' + req.body.id + '.jpg';
+  var ws = fs.createWriteStream(file);
+
+  request(req.body.url).pipe(ws);
+
+  ws.on('close', function () {
+    _solarizeCover(file, function (err) {
+      if (err) {
+        res.send({
+          success: false,
+          err: err
+        });
+      } else {
+        res.send({
+          success: true,
+          url: '/solarized/cover/' + req.body.id + '.jpg'
+        });
+      }
+    });
+  });
+}
+
+function _solarizeProfile(file, cb) {
   fs.readFile(file, function (err, pic) {
     if (err) return cb(err);
     var img = new Canvas.Image();
@@ -62,6 +93,32 @@ function _solarize(file, cb) {
       };
 
       logo.src = process.cwd() + '/solarized/logo.png';
+    };
+
+    img.src = pic;
+  });
+}
+
+
+function _solarizeCover(file, cb) {
+  fs.readFile(file, function (err, pic) {
+    if (err) return cb(err);
+    var img = new Canvas.Image();
+
+    img.onload = function () {
+      var canvas  = new Canvas(img.width, img.height);
+      var ctx     = canvas.getContext('2d');
+      var logo    = new Canvas.Image();
+      logo.onload = function () {
+        ctx.drawImage(img, 0, 0, img.width, img.height);
+        ctx.drawImage(logo, 0, img.height * 0.75, img.width, logo.height);
+        _saveCanvas(canvas, file, function (err) {
+          if (err) return cb (err);
+          cb();
+        });
+      };
+
+      logo.src = process.cwd() + '/solarized/cover-logo.png';
     };
 
     img.src = pic;

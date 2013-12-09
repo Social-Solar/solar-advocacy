@@ -36,15 +36,31 @@ angular.module('i-like-solar').factory('fb',
       });
     }
 
-    function getPhotoUrl(cb) {
-      FB.api('/me/picture', { type: 'large' }, function (res) {
+    function getCoverUrl(cb) {
+      FB.api('/me', { width: '851', height: '315', fields: 'cover' }, function (res) {
         cb(res);
         $rootScope.$apply();
       });
     }
 
-    function createPhoto(url, id, cb) {
-      $http.post(BASE_URL + '/createPhoto', {
+    function getProfileUrl(cb) {
+      FB.api('/me/picture', {width: '250', height: '250', fields: 'pic_crop'}, function (res) {
+        cb(res);
+        $rootScope.$apply();
+      });
+    }
+
+    function createProfilePhoto(url, id, cb) {
+      $http.post(BASE_URL + '/createProfilePhoto', {
+        url: url,
+        id: id
+      }).then(function (res) {
+        cb(res.data);
+      });
+    }
+
+    function createCoverPhoto(url, id, cb) {
+      $http.post(BASE_URL + '/createCoverPhoto', {
         url: url,
         id: id
       }).then(function (res) {
@@ -77,13 +93,15 @@ angular.module('i-like-solar').factory('fb',
     }
 
     return {
-      getLoginStatus: getLoginStatus,
-      login:          login,
-      getUser:        getUser,
-      getPhotoUrl:    getPhotoUrl,
-      createPhoto:    createPhoto,
-      uploadPhoto:    uploadPhoto,
-      ui:             ui
+      getLoginStatus:     getLoginStatus,
+      login:              login,
+      getUser:            getUser,
+      getProfileUrl:      getProfileUrl,
+      getCoverUrl:        getCoverUrl,
+      createProfilePhoto: createProfilePhoto,
+      createCoverPhoto:   createCoverPhoto,
+      uploadPhoto:        uploadPhoto,
+      ui:                 ui
     };
   }
 );

@@ -19,9 +19,21 @@ angular.module('i-like-solar').factory('salsa',
       });
     }
 
+    function deleteUser(user, cb) {
+      var obj = {
+        email: user + '@koobecaf.com',
+      };
+      var url = BASE_URL + '/delete/user';
+      $http.post(url, obj).then(function (res) {
+        if (!res.data.success) return cb(res.data.err);
+        cb();
+      });
+    }
+
     return {
-      getOptions: getOptions,
-      saveOptions: saveOptions
+      getOptions:  getOptions,
+      saveOptions: saveOptions,
+      deleteUser:  deleteUser
     };
   }
 );

@@ -7,13 +7,16 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
-  color: #00b7ff;
+  color: #369;
+}
+a:hover {
+  color: #4c99e5;
 }
 h3 {
   text-align: center;
 }
 .text {
-  color: #2649af;
+  color: #369;
   font-family: Rokkit;
 }
 .center {
@@ -22,7 +25,8 @@ h3 {
 .wrapper {
   margin: 0 auto;
   padding: 30px;
-  width: 1000px;
+  max-width: 1000px;
+  width: 80%;
 }
 .loading {
   padding: 30px;
@@ -30,15 +34,6 @@ h3 {
 }
 .loading div {
   margin-bottom: 20px;
-}
-.solarize {
-  text-align: center;
-}
-.solarize img {
-  width: 200px;
-}
-.solarize button {
-  margin-top: 10px;
 }
 .mBottom {
   margin-bottom: 5px;
@@ -48,7 +43,8 @@ h3 {
 }
 .milestone-text {
   display: inline-block;
-  width: 110px;
+  max-width: 110px;
+  width: 10%;
   vertical-align: middle;
 }
 .plug {
@@ -70,15 +66,30 @@ h3 {
 .double-pane.marginBottom {
   margin-bottom: 100px;
 }
+.double-pane.small-box {
+  height: 100px;
+}
+.double-pane.medium-box {
+  height: 300px;
+}
+.double-pane.solarize-btns {
+  margin-top: 150px;
+}
+.img-click:hover {
+  cursor: pointer;
+}
 .first-pane {
   display: inline-block;
-  width: 450px;
+  width: 47%;
 }
 .second-pane {
   display: inline-block;
-  width: 450px;
+  width: 45%;
   float: right;
   font-size: 24px;
+}
+.second-pane.right {
+  text-align: right;
 }
 .arrow {
   float: right;
@@ -132,4 +143,33 @@ h3 {
 }
 .options {
   margin: 20px 20px 20px 20px;
+}
+.visit-btn {
+  background-image: url("../img/visit.png");
+}
+.company-wrapper img {
+  width: 100%;
+}
+.solarized-examples {
+  min-width: 851px;
+  margin-bottom: 75px;
+}
+.solarized-examples .profile-pic {
+  position: absolute;
+  margin: 215px 0 0 25px;
+  width: 160px;
+  height: 160px;
+}
+.solarized-examples .cover-pic {
+  width: 851px;
+  height: 315px;
+}
+.center {
+  text-align: center;
+}
+.steps {
+  margin-left: 75px;
+}
+.small-text {
+  margin: 15px 0 15px 0;
 }
