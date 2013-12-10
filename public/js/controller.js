@@ -74,14 +74,12 @@ angular.module('i-like-solar').controller('fbCtrl',
 	$scope.postFeed = function(){
     if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
 		var publish = {
-        method: 'feed',
-        message: 'Share your solar story',
-        name: 'Share your solar story',
-        caption: 'https://www.facebook.com/ilikesolarapp',
-        description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
-        link: 'http://facebook.com/ilikesolar/',
-        //picture: 'http://www.fbrell.com/public/f8.jpg',
-        user_message_prompt: 'Share your thoughts about solar'
+     method: 'feed',
+		 name: 'I LIKE SOLAR',
+		 link: 'https://apps.facebook.com/i_like_solar/',
+		 picture: BASE_URL + '/img/sun.png',
+		 caption: 'Share your story',
+		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
 		};
 
 		fb.ui(publish,  function(res){
@@ -91,7 +89,7 @@ angular.module('i-like-solar').controller('fbCtrl',
           $scope.largeMilestones[1] = 'large3-filled.png';
           $scope.$apply();
       } else {
-				createAlert('error', 'Oops, Something went wrong. Try again!');
+				//createAlert('error', 'Oops, Something went wrong. Try again!');
 			}
 		});
 	};
