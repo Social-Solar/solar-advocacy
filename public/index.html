@@ -13,18 +13,18 @@
       <span class="logo">
         <img ng-src="img/logo.png">
       </span>
-      <span class="milestone-wrapper">
+      <div class="milestone-wrapper">
         <span ng-repeat="m in milestones">
           <span class="milestone-pic">
             <img ng-src="img/{{m.img}}">
           </span>
           <span class="milestone-text">{{m.text}}</span>
         </span>
-      </span>
+      </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
-      <div class="double-pane medium-box">
+      <div class="double-pane" ng-class="signUpClass">
         <div class="first-pane">
           <div ng-show="signedUp">
             <span class="fb-title text">Welcome {{name}}!</span>
@@ -38,7 +38,7 @@
           <div class="fb-facepile" data-app-id="582937771761901" data-max-rows="2" data-colorscheme="light" data-size="medium" data-show-count="true" data-width="400"></div>
         </div>
         <div class="second-pane">
-          <span class="text">Getting solar was a great idea, right? It is cost effective - and good for the environment. And great ideas deserve to be shared. Share your solar story on Facebook and help multiply solar power in your community.</span>
+          <span class="text opening-paragraph">Getting solar was a great idea, right? It is cost effective - and good for the economy. And great ideas deserve to be shared. Share your solar story on Facebook and help multiply solar power in your community.</span>
         </div>
       </div>
       <div class="plug">
@@ -130,7 +130,7 @@
         <img ng-src="img/plug-right.png">
       </div>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-      <div class="double-pane marginTop marginBottom">
+      <div class="double-pane share-invite marginBottom">
         <div class="first-pane">
           <span class="title text">Share your solar story</span>
           <div class="body text">By sharing that you have solar on Facebook, you are inspiring your friends to go solar – and your friends’ friends, too.</div>
@@ -138,7 +138,7 @@
         </div>
         <div class="second-pane">
           <span class="title text">Invite your friends</span>
-          <div class="body text">Great minds think a like. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
+          <div class="body text">Great minds think alike. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
           <img class="img-click" ng-src="img/invite.png" ng-click="requestFriends()">
         </div>
       </div>
@@ -162,7 +162,7 @@
       </div>
       <span class="title text">About</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-      <div class="double-pane big-box marginTop">
+      <div class="double-pane medium-box marginTop">
         <div class="first-pane">
           <div class="body-small text">
             <p>The I LIKE SOLAR app gives people with solar the ability to share they have it using Facebook. It also helps people who are interested in getting solar learn which of their friends has it.</p>
@@ -184,7 +184,33 @@
         </div>
       </div>
       <div class="company-wrapper">
-        <img ng-src="img/companies.jpg">
+        <a class="company-logo" href="http://www.cleanpowerfinance.com/" target="_blank">
+          <img ng-src="img/companies/clean-power-finance.png">
+        </a>
+        <a class="company-logo" href="http://www.enphase.com/" target="_blank">
+          <img ng-src="img/companies/enphase.png">
+        </a>
+        <a class="company-logo" href="http://www.seia.org/" target="_blank">
+          <img ng-src="img/companies/seia.png">
+        </a>
+        <a class="company-logo" href="http://www.solarcity.com/" target="_blank">
+          <img ng-src="img/companies/solarcity.png">
+        </a>
+        <a class="company-logo" href="http://www.sungevity.com/" target="_blank">
+          <img ng-src="img/companies/sungevity.png">
+        </a>
+        <a class="company-logo" href="http://us.sunpowercorp.com/" target="_blank">
+          <img ng-src="img/companies/sunpower.png">
+        </a>
+        <a class="company-logo" href="http://www.sunrun.com/" target="_blank">
+          <img ng-src="img/companies/sunrun.png">
+        </a>
+        <a class="company-logo" href="http://www.theclimategroup.org/" target="_blank">
+          <img ng-src="img/companies/the-climate-group.png">
+        </a>
+        <a class="company-logo" href="http://www.vivintsolar.com/" target="_blank">
+          <img ng-src="img/companies/vivintsolar.png">
+        </a>
       </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
