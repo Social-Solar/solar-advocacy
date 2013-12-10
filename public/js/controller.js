@@ -72,7 +72,7 @@ angular.module('i-like-solar').controller('fbCtrl',
          method: 'feed',
 		 name: 'I LIKE SOLAR',
 		 link: 'https://apps.facebook.com/i_like_solar/',
-		 picture: 'http://www.seia.org:3000/img/sun.png',
+		 picture: BASE_URL + '/img/sun.png',
 		 caption: 'Share your story',
 		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
 		};
@@ -83,7 +83,7 @@ angular.module('i-like-solar').controller('fbCtrl',
           $scope.milestones[2].img = 'ms3-filled.png';
           $scope.$apply();
       } else {
-				createAlert('error', 'Oops, Something went wrong. Try again!');
+				//createAlert('error', 'Oops, Something went wrong. Try again!');
 			}
 		});
 	};
