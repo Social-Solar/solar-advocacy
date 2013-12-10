@@ -71,7 +71,7 @@ angular.module('i-like-solar').controller('fbCtrl',
          method: 'feed',
 		 name: 'I LIKE SOLAR',
 		 link: 'https://apps.facebook.com/i_like_solar/',
-		 picture: 'http://fbrell.com/f8.jpg',
+		 picture: 'http://www.seia.org:3000/img/sun.png',
 		 caption: 'Share your story',
 		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
         //picture: 'http://www.fbrell.com/public/f8.jpg'
