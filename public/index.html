@@ -7,7 +7,7 @@
   <body ng-controller="fbCtrl" ng-show="true" style="display:none">
     <div class="wrapper center loading" ng-show="loading">
       <div>Loading...</div>
-      <img src='{{BASEURL}}/img/loading-orange-t2.gif'>
+      <img ng-src='{{BASEURL}}/img/loading-orange-t2.gif'>
     </div>
     <div ng-show="!loading" class='wrapper'>
       <span class="logo">
@@ -24,7 +24,7 @@
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
-      <div class="double-pane">
+      <div class="double-pane medium-box">
         <div class="first-pane">
           <div ng-show="signedUp">
             <span class="fb-title text">Welcome {{name}}!</span>
@@ -33,7 +33,9 @@
             <span class="fb-title text">Generate power with a click</span>
             <img class="arrow" ng-src="img/arrow.png">
             <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
+            <div class="small-text text">We will never post on your behalf or change your cover or profile photos without your direct consent. We will never show your picture to anyone you don’t opt to share you have solar with. Read more about our terms below.</div>
           </div>
+          <div class="fb-facepile" data-app-id="582937771761901" data-max-rows="2" data-colorscheme="light" data-size="medium" data-show-count="true" data-width="400"></div>
         </div>
         <div class="second-pane">
           <span class="text">Getting solar was a great idea, right? It is cost effective - and good for the environment. And great ideas deserve to be shared. Share your solar story on Facebook and help multiply solar power in your community.</span>
@@ -45,136 +47,179 @@
       <div class="title text">How can sharing on Facebook make an impact? Well, we’ve done the math.</div>
       <div class="body text spacing">You are a solar owner and you have
         <span class="num-wrapper">
-          <img src="img/1.png">
-          <img src="img/5.png">
-          <img src="img/0.png">
+          <img ng-src="img/1.png">
+          <img ng-src="img/5.png">
+          <img ng-src="img/0.png">
         </span>
         friends (U.S. average), who also have
         <span class="num-wrapper">
-          <img src="img/1.png">
-          <img src="img/5.png">
-          <img src="img/0.png">
+          <img ng-src="img/1.png">
+          <img ng-src="img/5.png">
+          <img ng-src="img/0.png">
         </span>
       friends. That’s
         <span class="num-wrapper">
-          <img src="img/2.png">
-          <img src="img/2.png">
+          <img ng-src="img/2.png">
+          <img ng-src="img/2.png">
           <img class="comma" src="img/comma.png">
-          <img src="img/5.png">
-          <img src="img/0.png">
-          <img src="img/0.png">
+          <img ng-src="img/5.png">
+          <img ng-src="img/0.png">
+          <img ng-src="img/0.png">
         </span>
          friends. So imagine if every U.S. solar owner shared their story. That would be
         <span class="num-wrapper">
-          <img src="img/1.png">
-          <img src="img/4.png">
-          <img src="img/0.png">
+          <img ng-src="img/1.png">
+          <img ng-src="img/4.png">
+          <img ng-src="img/0.png">
           <img class="comma" src="img/comma.png">
-          <img src="img/0.png">
-          <img src="img/0.png">
-          <img src="img/0.png">
+          <img ng-src="img/0.png">
+          <img ng-src="img/0.png">
+          <img ng-src="img/0.png">
           <img class="comma" src="img/comma.png">
-          <img src="img/0.png">
-          <img src="img/0.png">
-          <img src="img/0.png">
+          <img ng-src="img/0.png">
+          <img ng-src="img/0.png">
+          <img ng-src="img/0.png">
         </span>
          more people who know the benefits of solar. That is a whole lot of power for just one click.
       </div>
       <div class="body text spacing">
          And even better, research shows that people who know somebody with solar, make the choice to go solar themselves
         <span class="num-wrapper">
-          <img src="img/3.png">
-          <img src="img/x.png">
+          <img ng-src="img/3.png">
+          <img ng-src="img/x.png">
         </span>
          quicker. So by sharing your story on Facebook, you’ll be helping to build a huge solar community - faster.
+      </div>
+      <div class="center">
+        <img ng-src="img/large-step2.png">
       </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
       <span class="title text">Solarize your profile</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-      <div class="double-pane marginBottom">
+      <div class="text body">One easy way to show your support is by adding solar to your profile.</div>
+      <div class="solarized-examples center">
+        <img class="profile-pic" ng-src="{{profileUrl}}">
+        <img class="cover-pic" ng-src="{{coverUrl}}">
+      </div>
+      <div class="double-pane solarize-btns small-box">
         <div class="first-pane">
-          <img ng-src="img/solarization.png">
+          <img ng-show="!profileUploading" class="img-click" ng-src="img/profile.png" ng-click="uploadToFacebook('profile')">
+          <div class="body text" ng-show="!profileSolarized && profileUploading">Uploading...</div>
+          <a ng-show="profileSolarized && profileUploading" class="body text" href="{{solarized_url}}" target="_blank">Link to your solarized profile photo!</a>
         </div>
-        <div class="second-pane solarize">
-          <img ng-src="{{picUrl}}">
-          <div class="center">
-            <button class="btn btn-success" ng-click='solarizePhoto()' ng-disabled="!loggedIn">{{solarizing && 'Solarizing' || 'Solarize Your Profile Picture'}}</button>
-            <p ng-show="solarized_url"><a href="{{solarized_url}}">Link to your Solarized Picture!</a></p>
-          </div>
+        <div class="second-pane right">
+          <img ng-show="!coverUploading" class="img-click" ng-src="img/cover.png" ng-click="uploadToFacebook('cover')">
+          <div class="body text" ng-show="!coverSolarized && coverUploading">Uploading...</div>
+          <a ng-show="coverSolarized && coverUploading" class="body text" href="{{solarized_url}}" target="_blank">Link to your solarized cover photo!</a>
         </div>
+      </div>
+      <div class="body text steps">
+        <p>1. Click ‘Solarize profile picture’ button</p>
+        <p>2. Click the link that appears</p>
+        <p>3. In the new tab that opens, click ‘make profile picture’</p>
+        <p>4. Arrange your image and click ‘done cropping’</p>
+        <p>5. Repeat for cover photo</p>
+        <p>6. Enjoy your solarized profile!</p>
+      </div>
+      <div class="center">
+        <img ng-src="img/large-step3.png">
       </div>
       <div class="plug">
         <img ng-src="img/plug-right.png">
       </div>
-      <span class="title text">Share your solar story</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-
-      <div class="double-pane marginTop">
+      <div class="double-pane marginTop marginBottom">
         <div class="first-pane">
-          <div class="body text">By adding the day you first got solar as a life event on Facebook, you are inspiring your friends to go solar - and your friends’ friends too.</div>
-          <!-- <div class="fb-like" data-href="http://apps.facebook.com/i_like_solar_beta" data-width="400" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div> -->
+          <span class="title text">Share your solar story</span>
+          <div class="body text">By sharing that you have solar on Facebook, you are inspiring your friends to go solar – and your friends’ friends, too.</div>
+          <img class="img-click" ng-src="img/story.png" ng-click="postFeed()">
         </div>
         <div class="second-pane">
-          <button class="btn btn-success fb-event" ng-disabled="!loggedIn" ng-click="postfeed()">Share your solar story</button>
+          <span class="title text">Invite your friends</span>
+          <div class="body text">Great minds think a like. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
+          <img class="img-click" ng-src="img/invite.png" ng-click="requestFriends()">
         </div>
       </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
-      </div>
-      <span class="title text">Invite your friends</span>
-      <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
-      <div class="double-pane marginTop">
-        <div class="first-pane">
-          <div class="body text">Great minds think alike. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
-        </div>
-        <div class="second-pane">
-          <button class="btn btn-success fb-event" ng-disabled="!loggedIn" ng-click="requestfriends()">Invite Friends</button>
-        </div>
-      </div>
-      <div class="plug">
-        <img ng-src="img/plug-right.png">
       </div>
       <span class="title text">Join the conversation</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
       <div class="double-pane marginTop">
         <div class="first-pane">
-          <div class="body text">We are building a solar Facebook community – please visit, Like and share your solar story at the I like Solar Facebook Page to show the power of rooftop solar.</div>
+          <div class="body text">We are building a solar Facebook community – please visit, Like and share your solar story at the I LIKE SOLAR Facebook Page to show the power of rooftop solar.</div>
         </div>
         <div class="second-pane">
-          <button class="btn btn-success fb-event">Visit "I Like Solar" Facebook Page</button>
+          <a href="https://www.facebook.com/ilikesolarapp">
+            <img class="visit-btn" src="/img/visit.png">
+          </a>
         </div>
       </div>
       <div class="plug">
-        <img ng-src="img/plug-left.png">
+        <img ng-src="img/plug-right.png">
       </div>
       <span class="title text">About</span>
       <img class="top" ng-src="img/top.png" ng-click="scrollToTop()">
       <div class="double-pane big-box marginTop">
         <div class="first-pane">
-          <div class="body text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+          <div class="body-small text">
+            <p>The I LIKE SOLAR app gives people with solar the ability to share they have it using Facebook. It also helps people who are interested in getting solar learn which of their friends has it.</p>
+            <p>Great ideas are contagious and solar is a perfect example. Research shows that when someone knows someone with solar, their decision to get solar is made three times faster!
+              <a href="http://iopscience.iop.org/1748-9326/8/1/014044" target="_blank"><u>(2013 Environ. Res. Lett. 8 014044).</u></a>
+              And that’s because when your friends recommend something -- a restaurant or a new band -- you know them and trust what they suggest. So let’s share the power of solar with friends.</p>
+            <p>Created by the Solar Energy Industries Association, The Climate Group and major solar companies, I LIKE SOLAR</p>
+          </div>
         </div>
         <div class="second-pane">
-          <div class="body text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+          <div class="body-small text">
+            <p>is a solar community and a platform for sharing stories, ideas and the benefits of the sun. We believe solar represents a massive opportunity to transition to clean, renewable energy. Solar is an economic engine, fueling jobs and small businesses across America. Driven by a 40% price drop over the past two years, there is currently enough solar capacity
+              <a href="http://www.seia.org/research-resources/us-solar-market-insight%20" target="_blank"><u>to power more than 1.5 million American homes</u></a>
+              , with much more to come, making solar more
+              <a href="http://americasupportssolar.org/" target="_blank"><u>affordable – and more popular – than ever</u></a>.</p>
+            <p>Design and content by The Climate Group and Rick Velleu.</p>
+            <p>Website built by Vivint Solar and Enphase Energy.</p>
+          </div>
         </div>
       </div>
       <div class="company-wrapper">
-        <img src="img/companies.png">
+        <img ng-src="img/companies.jpg">
       </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
-      <span class="title text">T&Cs</span>
-      <div class="double-pane">
+      <span class="title text">Terms of Service</span>
+      <div class="double-pane big-box">
         <div class="first-pane">
-          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+          <div class="body-small text">
+            <p>
+              This website is owned by the Solar Energy Industries Association (SEIA) and is protected by <a href="http://www.seia.org/privacy-policy" target="_blank"><u>SEIA’s Privacy Policy</u></a> and <a href="http://www.seia.org/terms-service" target="_blank"><u>Terms of Service</u></a>.
+            </p>
+            <p>
+              This application allows you to register to join by logging into your account on Facebook.
+              When you select to share you have solar with your Facebook friends or friends of friends, if one of them wants to see who they know with solar we will show them your picture along with anyone else they know who has shared they have solar (this feature is not yet released). In order to accomplish this we may access, make available and store this information so that it is available on the site and on related functions.
+            </p>
+            </p>
+              We will never post on your behalf or change your Facebook page without your direct consent. We will never show your picture to anyone you don’t opt to share you have solar with.
+            </p>
+          </div>
         </div>
         <div class="second-pane">
-          <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
+          <div class="body-small text">
+            <p>
+              At any time, you may opt-out from the application and remove your information from being displayed. To do so, go to your <a href="https://www.facebook.com/bookmarks/apps" target="_blank"><u>apps manager in your Facebook profile</u></a> and remove “I Like Solar” from the list.
+            </p>
+            <p>
+              By signing up for this application, you acknowledge and agree to the following: (i) if you use an Application to share information, you are consenting to information about your profile being shared; (ii) your use of an Application may cause personally identifying information to be publicly disclosed and/or associated with you, even if SEIA has not itself provided such information; and (iii) your use of an Application is at your own option and risk, and you will hold SEIA harmless for activity related to the Application.
+            </p>
+          </div>
+        </div>
+        <div class="center">
+          <img ng-src="/img/sun.png">
         </div>
       </div>
-      <span class="title text">FAQs</span>
+<!--       <span class="title text">FAQs</span>
       <div class="double-pane">
         <div class="first-pane">
           <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
@@ -182,6 +227,12 @@
         <div class="second-pane">
           <div class="body-small text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sagittis sagittis purus, eu pharetra urna. Maecenas faucibus massa non nulla tempus auctor. Vestibulum ut nunc dapibus, fermentum neque et, laoreet erat. Maecenas consectetur gravida velit, vitae auctor nunc hendrerit et. Morbi mattis, lectus eget lacinia porttitor, urna velit sollicitudin lacus. Lorem ipsum dolor sit amet,</div>
         </div>
+      </div> -->
+      <div class="footer center">
+        <p>
+          Copyright: Solar Energy Industries Association 2013 All code was created using open source code on <a href="https://github.com/Social-Solar/solar-advocacy" target="_blank">Git Hub</a>.
+        </p>
+        <button class="btn text center" ng-click="unsubscribe()">Unsubscribe</button>
       </div>
     </div>
 

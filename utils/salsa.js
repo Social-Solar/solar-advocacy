@@ -16,7 +16,11 @@ var groupKeys = {
   vivint:    67577,
   sungevity: 67578,
   enphase:   67579,
-  other:     67580
+  sunrun:    67888,
+  sunpower:  67887,
+  solarcity: 67886,
+  other:     67580,
+  'clean power finance': 67885
 };
 
 // -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
@@ -61,9 +65,22 @@ function saveUser(user, cb) {
   });
 }
 
+
+function deleteUser(email, cb) {
+  var jar = request.jar();
+  _authenticate(jar, function (err) {
+    if (err) return cb(err);
+    _findUser(email, jar, function (err, user) {
+      if (err) return cb(err);
+      _removeUser(user, jar, cb);
+    });
+  });
+}
+
 module.exports = {
-  get: getUser,
-  save: saveUser
+  get:    getUser,
+  save:   saveUser,
+  remove: deleteUser
 };
 
 
@@ -118,7 +135,6 @@ function _createUser(user, groupKey, jar, cb) {
       Email:             user.id,
       fbtoken2:          user.token,
       solar_company:     user.company,
-      supporter_groups:  groupKey,
       privacy_settings2: user.privacy,
       adsource:          user.source,
       link:              'chapter',
@@ -177,7 +193,7 @@ function _findGroup(groupKey, userKey, jar, cb) {
     });
     cb(null, obj);
   });
-};
+}
 
 function _removeFromGroup(groupKey, userKey, jar, cb) {
   request({
@@ -205,7 +221,24 @@ function _addToGroup(groupKey, userKey, jar, cb) {
       json:          true
     },
     jar: jar
-  }, function (err, res, body) {
+  }, function (err) {
+    if (err) return cb(err);
+    cb();
+  });
+}
+
+
+function _removeUser(user, jar, cb) {
+  console.log(user);
+  request({
+    url: apiUrl + 'delete',
+    method: 'POST',
+    qs: {
+      object: 'supporter',
+      key:    user.supporter_KEY
+    },
+    jar: jar
+  }, function (err) {
     if (err) return cb(err);
     cb();
   });

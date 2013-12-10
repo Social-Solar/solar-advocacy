@@ -15,6 +15,7 @@ var salsa   = require('../utils/salsa.js');
 module.exports = function (app) {
   app.post('/get/user', fbVerify, getUser);
   app.post('/save/user', fbVerify, postUser);
+  app.post('/delete/user', deleteUser);
   app.post('/test/get', getUser);
   app.post('/test/save', postUser);
 };
@@ -60,6 +61,16 @@ function postUser(req, res) {
     source:  data.source
   };
   salsa.save(user, function (err) {
+    if (err) return _fail(res, err);
+    res.send({
+      success: true
+    });
+  });
+}
+
+function deleteUser(req, res) {
+  var data = req.body;
+  salsa.remove(data.email, function(err) {
     if (err) return _fail(res, err);
     res.send({
       success: true
