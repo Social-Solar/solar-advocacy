@@ -8,10 +8,11 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.company   = $location.search().company;
     $scope.source    = $location.search().source;
 
+    $scope.signUpClass = 'medium-box';
     $scope.profileSolarized = false;
     $scope.coverSolarized   = false;
 
-    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint', 'Other'];
+    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint Solar', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
     }
@@ -181,6 +182,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         $scope.name = res.first_name || res.name;
         gotName = true;
         $scope.signedUp = true;
+        $scope.signUpClass = 'small-box';
         solarizeProfilePhoto();
         solarizeCoverPhoto();
         if (gotOptions) $scope.loading = false;
