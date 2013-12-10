@@ -107,12 +107,12 @@
         <div class="first-pane">
           <img ng-show="!profileUploading" class="img-click" ng-src="img/profile.png" ng-click="uploadToFacebook('profile')">
           <div class="body text" ng-show="!profileSolarized && profileUploading">Uploading...</div>
-          <a ng-show="profileSolarized && profileUploading" class="body text" href="{{solarized_url}}" target="_blank">Link to your solarized profile photo!</a>
+          <a ng-show="profileSolarized && profileUploading" class="body text" href="{{solarized_url}}" target="_blank"><u>Link to your solarized profile photo!</u></a>
         </div>
         <div class="second-pane right">
           <img ng-show="!coverUploading" class="img-click" ng-src="img/cover.png" ng-click="uploadToFacebook('cover')">
           <div class="body text" ng-show="!coverSolarized && coverUploading">Uploading...</div>
-          <a ng-show="coverSolarized && coverUploading" class="body text" href="{{solarized_url}}" target="_blank">Link to your solarized cover photo!</a>
+          <a ng-show="coverSolarized && coverUploading" class="body text" href="{{solarized_url}}" target="_blank"><u>Link to your solarized cover photo!</u></a>
         </div>
       </div>
       <div class="body text steps">
