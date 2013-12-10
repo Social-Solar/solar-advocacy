@@ -159,7 +159,7 @@ angular.module('i-like-solar').controller('fbCtrl',
       if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
       $scope[picture + 'Uploading'] = true;
       var img = picture === 'profile' ? $scope.profileUrl : $scope.coverUrl;
-      fb.uploadPhoto($scope.profileUrl, function (resp) {
+      fb.uploadPhoto(img, function (resp) {
         if (resp.error) return createAlert('error', resp.error.message);
         $scope[picture + 'Solarized'] = true;
         $scope.uploading = false;
