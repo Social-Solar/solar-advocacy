@@ -85,7 +85,7 @@ function _solarizeProfile(file, cb) {
       var logo    = new Canvas.Image();
       logo.onload = function () {
         ctx.drawImage(img, 0, 0, img.width, img.height);
-        ctx.drawImage(logo, img.width - logo.width, img.height - logo.height, logo.width, logo.height);
+        ctx.drawImage(logo, img.width - (logo.width + 10), img.height - (logo.height + 10), logo.width, logo.height);
         _saveCanvas(canvas, file, function (err) {
           if (err) return cb (err);
           cb();

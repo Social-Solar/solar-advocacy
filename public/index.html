@@ -15,9 +15,9 @@
       </span>
       <div class="milestone-wrapper">
         <span ng-repeat="m in milestones">
-          <span class="milestone-pic">
+          <a href="{{m.target}}"class="milestone-pic">
             <img ng-src="img/{{m.img}}">
-          </span>
+          </a>
           <span class="milestone-text">{{m.text}}</span>
         </span>
       </div>
@@ -90,8 +90,8 @@
         </span>
          quicker. So by sharing your story on Facebook, you’ll be helping to build a huge solar community - faster.
       </div>
-      <div class="center">
-        <img ng-src="img/large-step2.png">
+      <div id="step-2" class="center">
+        <img ng-src="img/{{largeMilestones[0]}}">
       </div>
       <div class="plug">
         <img ng-src="img/plug-left.png">
@@ -123,8 +123,8 @@
         <p>5. Repeat for cover photo</p>
         <p>6. Enjoy your solarized profile!</p>
       </div>
-      <div class="center">
-        <img ng-src="img/large-step3.png">
+      <div id="step-3" class="center">
+        <img ng-src="img/{{largeMilestones[1]}}">
       </div>
       <div class="plug">
         <img ng-src="img/plug-right.png">

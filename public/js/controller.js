@@ -21,15 +21,20 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.loading   = true;
 
     $scope.milestones = [{
-      img: 'ms1-filled.png',
-      text: 'Sign in with Facebook'
+      img: 'ms1.png',
+      text: 'Sign in with Facebook',
+      target: ''
     },{
       img: 'ms2.png',
-      text: 'Solarize your profile'
+      text: 'Solarize your profile',
+      target: '#step-2'
     },{
       img: 'ms3.png',
-      text: 'Share your solar story'
+      text: 'Share your solar story',
+      target: '#step-3'
     }];
+
+    $scope.largeMilestones = ['large2.png', 'large3.png'];
 
     $scope.profileUrl = BASE_URL + '/img/profile.jpg';
     $scope.coverUrl   = BASE_URL + '/img/example-cover.png';
@@ -72,7 +77,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         method: 'feed',
         message: 'Share your solar story',
         name: 'Share your solar story',
-        caption: 'http://facebook.com/ilikesolar',
+        caption: 'https://www.facebook.com/ilikesolarapp',
         description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
         link: 'http://facebook.com/ilikesolar/',
         //picture: 'http://www.fbrell.com/public/f8.jpg',
@@ -83,6 +88,7 @@ angular.module('i-like-solar').controller('fbCtrl',
 			if (res && res.post_id) {
           createAlert('success', 'Your post was successful');
           $scope.milestones[2].img = 'ms3-filled.png';
+          $scope.largeMilestones[1] = 'large3-filled.png';
           $scope.$apply();
       } else {
 				createAlert('error', 'Oops, Something went wrong. Try again!');
@@ -166,6 +172,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         $scope.uploading = false;
         $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
         $scope.milestones[1].img = 'ms2-filled.png';
+        $scope.largeMilestones[0] = 'large2-filled.png';
         createAlert('success', 'Profile photo successfully uploaded!');
         $scope.$apply();
       });
@@ -183,6 +190,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         gotName = true;
         $scope.signedUp = true;
         $scope.signUpClass = 'small-box';
+        $scope.milestones[0].img = 'ms1-filled.png';
         solarizeProfilePhoto();
         solarizeCoverPhoto();
         if (gotOptions) $scope.loading = false;
