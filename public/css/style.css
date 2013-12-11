@@ -25,7 +25,7 @@ h3 {
 .wrapper {
   margin: 0 auto;
   padding: 30px;
-  max-width: 1000px;
+  max-width: 850px;
   width: 80%;
 }
 .loading {
@@ -35,16 +35,20 @@ h3 {
 .loading div {
   margin-bottom: 20px;
 }
+.logo img {
+  width: 50%;
+}
 .mBottom {
   margin-bottom: 5px;
 }
 .milestone-wrapper {
   margin-left: 30px;
+  display: inline-block;
 }
 .milestone-text {
   display: inline-block;
-  max-width: 110px;
-  width: 10%;
+  max-width: 80px;
+  width: 21%;
   vertical-align: middle;
 }
 .plug {
@@ -52,28 +56,19 @@ h3 {
   margin: 50px 0 50px;
 }
 .plug img {
-  width: 1000px;
-}
-.double-pane {
-  height: 200px;
+  width: 100%;
 }
 .double-pane.marginTop {
   margin-top: 40px;
 }
-.double-pane.big-box {
-  height: 400px;
-}
 .double-pane.marginBottom {
   margin-bottom: 100px;
 }
-.double-pane.small-box {
-  height: 100px;
-}
-.double-pane.medium-box {
-  height: 300px;
-}
 .double-pane.solarize-btns {
   margin-top: 150px;
+}
+.double-pane.share-invite {
+  margin-top: 100px;
 }
 .img-click:hover {
   cursor: pointer;
@@ -84,7 +79,7 @@ h3 {
 }
 .second-pane {
   display: inline-block;
-  width: 45%;
+  width: 46%;
   float: right;
   font-size: 24px;
 }
@@ -96,23 +91,22 @@ h3 {
   margin-top: 25px;
 }
 .fb-title {
-  font-size: 38px;
+  font-size: 30px;
 }
 .fb-login-btn {
-  width: 415px;
-  height: 75px;
+  width: 90%;
+  height: 60px;
   margin-top: 30px;
 }
 .fb-login-btn:hover {
   cursor: pointer;
 }
 .title {
-  width: 800px;
-  font-size: 40px;
+  font-size: 30px;
 }
 .body {
   margin: 25px 0 25px;
-  font-size: 24px;
+  font-size: 22px;
 }
 .spacing {
   line-height: 200%;
@@ -144,9 +138,6 @@ h3 {
 .options {
   margin: 20px 20px 20px 20px;
 }
-.visit-btn {
-  background-image: url("../img/visit.png");
-}
 .company-wrapper img {
   width: 100%;
 }
@@ -172,4 +163,9 @@ h3 {
 }
 .small-text {
   margin: 15px 0 15px 0;
+}
+.company-logo {
+  width: 17%;
+  display: inline-block;
+  margin: 10px;
 }

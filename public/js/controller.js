@@ -8,10 +8,11 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.company   = $location.search().company;
     $scope.source    = $location.search().source;
 
+    $scope.signUpClass = 'medium-box';
     $scope.profileSolarized = false;
     $scope.coverSolarized   = false;
 
-    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint', 'Other'];
+    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint Solar', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
     }
@@ -20,15 +21,20 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.loading   = true;
 
     $scope.milestones = [{
-      img: 'ms1-filled.png',
-      text: 'Sign in with Facebook'
+      img: 'ms1.png',
+      text: 'Sign in with Facebook',
+      target: ''
     },{
       img: 'ms2.png',
-      text: 'Solarize your profile'
+      text: 'Solarize your profile',
+      target: '#step-2'
     },{
       img: 'ms3.png',
-      text: 'Share your solar story'
+      text: 'Share your solar story',
+      target: '#step-3'
     }];
+
+    $scope.largeMilestones = ['large2.png', 'large3.png'];
 
     $scope.profileUrl = BASE_URL + '/img/profile.jpg';
     $scope.coverUrl   = BASE_URL + '/img/example-cover.png';
@@ -68,23 +74,22 @@ angular.module('i-like-solar').controller('fbCtrl',
 	$scope.postFeed = function(){
     if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
 		var publish = {
-        method: 'feed',
-        message: 'Share your solar story',
-        name: 'Share your solar story',
-        caption: 'http://facebook.com/ilikesolar',
-        description: (  ' By sharing you have solar on Facebook you are inspiring your friends to go solar - and your friends’ friends too.'),
-        link: 'http://facebook.com/ilikesolar/',
-        //picture: 'http://www.fbrell.com/public/f8.jpg',
-        user_message_prompt: 'Share your thoughts about solar'
+     method: 'feed',
+		 name: 'I LIKE SOLAR',
+		 link: 'https://apps.facebook.com/i_like_solar/',
+		 picture: BASE_URL + '/img/sun.png',
+		 caption: 'Share your story',
+		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
 		};
 
 		fb.ui(publish,  function(res){
 			if (res && res.post_id) {
           createAlert('success', 'Your post was successful');
           $scope.milestones[2].img = 'ms3-filled.png';
+          $scope.largeMilestones[1] = 'large3-filled.png';
           $scope.$apply();
       } else {
-				createAlert('error', 'Oops, Something went wrong. Try again!');
+				//createAlert('error', 'Oops, Something went wrong. Try again!');
 			}
 		});
 	};
@@ -159,12 +164,13 @@ angular.module('i-like-solar').controller('fbCtrl',
       if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
       $scope[picture + 'Uploading'] = true;
       var img = picture === 'profile' ? $scope.profileUrl : $scope.coverUrl;
-      fb.uploadPhoto($scope.profileUrl, function (resp) {
+      fb.uploadPhoto(img, function (resp) {
         if (resp.error) return createAlert('error', resp.error.message);
         $scope[picture + 'Solarized'] = true;
         $scope.uploading = false;
         $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
         $scope.milestones[1].img = 'ms2-filled.png';
+        $scope.largeMilestones[0] = 'large2-filled.png';
         createAlert('success', 'Profile photo successfully uploaded!');
         $scope.$apply();
       });
@@ -181,6 +187,8 @@ angular.module('i-like-solar').controller('fbCtrl',
         $scope.name = res.first_name || res.name;
         gotName = true;
         $scope.signedUp = true;
+        $scope.signUpClass = 'small-box';
+        $scope.milestones[0].img = 'ms1-filled.png';
         solarizeProfilePhoto();
         solarizeCoverPhoto();
         if (gotOptions) $scope.loading = false;

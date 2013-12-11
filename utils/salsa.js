@@ -13,13 +13,13 @@ var salsaChapterKey = 10100;
 var apiUrl          = 'https://hq-salsa.wiredforchange.com/';
 
 var groupKeys = {
-  vivint:    67577,
   sungevity: 67578,
   enphase:   67579,
   sunrun:    67888,
   sunpower:  67887,
   solarcity: 67886,
   other:     67580,
+  'vivint solar':        67577,
   'clean power finance': 67885
 };
 
