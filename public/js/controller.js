@@ -73,11 +73,18 @@ angular.module('i-like-solar').controller('fbCtrl',
 
 	$scope.postFeed = function(){
     if (!$scope.signedUp) return createAlert('error', 'You haven\'t signed up yet!');
+
+    var sunUrl = BASE_URL;
+    if (sunUrl.indexOf(':4000') !== -1)
+      sunUrl = 'https:' + sunUrl;
+    else
+      sunUrl = 'http:' + sunUrl;
+
 		var publish = {
      method: 'feed',
 		 name: 'I LIKE SOLAR',
 		 link: 'https://apps.facebook.com/i_like_solar/',
-		 picture: BASE_URL + '/img/sun.png',
+		 picture: sunUrl,
 		 caption: 'Share your story',
 		 description: 'Solar is getting smarter! Did you know your friends could get solar 3x faster if they know you have solar? Share your solar story to help multiply solar power in your community. via I LIKE SOLAR.',
 		};
