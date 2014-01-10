@@ -40,7 +40,7 @@ function getUser(req, res) {
       privacy: {}
     };
     try {
-      user2.privacy = JSON.parse(user.privacy_settings2);
+      user2.privacy = user.privacy_settings2 ? JSON.parse(user.privacy_settings2) : {};
     } catch (e) {
       console.error(e);
     }

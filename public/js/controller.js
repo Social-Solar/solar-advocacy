@@ -5,8 +5,11 @@ angular.module('i-like-solar').controller('fbCtrl',
 
     $scope.alerts    = [];
     $scope.signedUp  = false;
+    //looks for company in the query string
     $scope.company   = $location.search().company;
+    //looks for source in the query string
     $scope.source    = $location.search().source;
+    $scope.swFriends = true;
 
     $scope.signUpClass = 'medium-box';
     $scope.profileSolarized = false;
@@ -209,6 +212,7 @@ angular.module('i-like-solar').controller('fbCtrl',
 
         $scope.swFriends = data.privacy.friends;
         $scope.swFoF = data.privacy.friendsOfFriends;
+        console.log($scope.swFriends, $scope.swFoF);
       });
     }
 

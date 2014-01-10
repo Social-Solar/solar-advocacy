@@ -232,7 +232,7 @@
               When you select to share you have solar with your Facebook friends or friends of friends, if one of them wants to see who they know with solar we will show them your picture along with anyone else they know who has shared they have solar (this feature is not yet released). In order to accomplish this we may access, make available and store this information so that it is available on the site and on related functions.
             </p>
             </p>
-              We will never post on your behalf or change your cover or profile photos without your direct consent. We won't share your picture with anyone you haven't opted to share it with. 
+              We will never post on your behalf or change your cover or profile photos without your direct consent. We won't share your picture with anyone you haven't opted to share it with.
             </p>
           </div>
         </div>
@@ -285,36 +285,35 @@
     <script src="{{BASEURL}}/js/salsa-service.js"></script>
     <script src="{{BASEURL}}/js/controller.js"></script>
     <script src="{{BASEURL}}/js/main.js"></script>
-    
+
     <!--chartbeat tracking-->
     <script type="text/javascript">
-  var _sf_async_config = { uid: 39096, domain: 'ilikesolar.org', useCanonical: true };
-  (function() {
-    function loadChartbeat() {
-      window._sf_endpt = (new Date()).getTime();
-      var e = document.createElement('script');
-      e.setAttribute('language', 'javascript');
-      e.setAttribute('type', 'text/javascript');
-      e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
-      document.body.appendChild(e);
-    };
-    var oldonload = window.onload;
-    window.onload = (typeof window.onload != 'function') ?
-      loadChartbeat : function() { oldonload(); loadChartbeat(); };
-  })();
-</script>
+      var _sf_async_config = { uid: 39096, domain: 'ilikesolar.org', useCanonical: true };
+      (function() {
+        function loadChartbeat() {
+          window._sf_endpt = (new Date()).getTime();
+          var e = document.createElement('script');
+          e.setAttribute('language', 'javascript');
+          e.setAttribute('type', 'text/javascript');
+          e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+          document.body.appendChild(e);
+        };
+        var oldonload = window.onload;
+        window.onload = (typeof window.onload != 'function') ?
+          loadChartbeat : function() { oldonload(); loadChartbeat(); };
+      })();
+    </script>
 
-<!--Google Analytics tracking-->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <!--Google Analytics tracking-->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-18978291-5', 'ilikesolar.org');
-  ga('send', 'pageview');
-
-</script>
+      ga('create', 'UA-18978291-5', 'ilikesolar.org');
+      ga('send', 'pageview');
+    </script>
 
   </body>
 </html>
