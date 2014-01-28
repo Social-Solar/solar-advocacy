@@ -25,23 +25,33 @@
       <div class="plug">
         <img ng-src="img/plug-left.png">
       </div>
-      <div class="double-pane" ng-class="signUpClass">
+      
+      <div class="double-pane" ng-class="signUpClass" ng-show="!signedUp">        
         <div class="first-pane">
-          <div ng-show="signedUp">
-            <span class="fb-title text">Welcome {{name}}!</span>
-          </div>
           <div ng-show="!signedUp">
             <span class="fb-title text">Generate power with a click</span>
             <img class="arrow" ng-src="img/arrow.png">
             <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
           </div>
           <div class="fb-facepile" data-app-id="582937771761901" data-max-rows="2" data-colorscheme="light" data-size="medium" data-show-count="true" data-width="200"></div>
-        </div>
+        </div>      
         <div class="second-pane">
           <span class="text opening-paragraph">Research shows that people who know somebody with solar choose to go solar themselves 3x quicker. So by signing in with Facebook to show your friends you have solar, you’ll be helping to build a huge solar community – faster.</span>
           <div class="small-text text">We will never post or change your profile without your consent.</div>
-        </div>
+        </div>        
       </div>
+     
+      <div ng-class="signUpClass" ng-show="signedUp">
+          
+            <div width="100%"><span class="fb-title text">Welcome {{name}}!</span></div>
+            <div class="fb-facepile" data-app-id="582937771761901" data-max-rows="2" data-colorscheme="light" data-size="medium" data-show-count="true" data-width="200" style="float:right;"></div>
+            <span class="text opening-paragraph">Research shows that people who know somebody with solar choose to go solar themselves 3x quicker. So by signing in with Facebook to show your friends you have solar, you’ll be helping to build a huge solar community – faster.</span>
+          <div class="small-text text">We will never post or change your profile without your consent.</div>
+            
+       
+          
+      </div>
+      
       <div class="plug" id="step-2">
         <img ng-src="img/plug-right.png">
       </div>
