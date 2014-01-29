@@ -53,7 +53,7 @@ h3 {
 }
 .plug {
   text-align: center;
-  margin: 50px 0 50px;
+  margin: 40px 0 40px;
 }
 .plug img {
   width: 100%;
@@ -85,6 +85,9 @@ h3 {
 }
 .second-pane.right {
   text-align: right;
+}
+.opening-paragraph {
+  font-size: 24px;
 }
 .arrow {
   float: right;
