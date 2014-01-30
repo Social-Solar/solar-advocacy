@@ -71,7 +71,8 @@ angular.module('i-like-solar').controller('fbCtrl',
           $scope.joining = false;
           // createAlert('error', 'Oops, Something went wrong. Try again!');
         }
-      }, 'publish_actions');
+//      }, 'publish_actions');
+      });
     };
 
 	$scope.postFeed = function(){
