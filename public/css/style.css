@@ -170,6 +170,9 @@ h3 {
   right: 50px;
   width: 8%;
 }
+.fb_iframe_widget {
+  width: 100%;
+}
 .center {
   text-align: center;
 }
