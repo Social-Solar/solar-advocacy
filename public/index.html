@@ -63,6 +63,8 @@
       <div class="solarized-examples center">
         <img class="profile-pic" ng-src="{{profileUrl}}">
         <img class="cover-pic" ng-src="{{coverUrl}}">
+        <img class="leftyellowarrow" ng-src="img/left-yellow-arrow.png">
+        <img class="rightyellowarrow" ng-src="img/right-yellow-arrow.png">
       </div>
       <div class="double-pane solarize-btns small-box">
         <div class="first-pane">
@@ -232,7 +234,8 @@ friends. That’s
         <div class="second-pane">
           <div class="body-small text">
             <p>
-              At any time, you may opt-out from the application and remove your information from being displayed. To do so, go to your <a href="https://www.facebook.com/bookmarks/apps" target="_blank"><u>apps manager in your Facebook profile</u></a> and remove “I Like Solar” from the list.
+              At any time, you may opt-out from the application and remove your information from being displayed. To do so, <!--go to your <a href="https://www.facebook.com/bookmarks/apps" target="_blank"><u>apps manager in your Facebook profile</u></a> and remove “I Like Solar” from the list.--> click the unsubscribe button below: <br />
+              <button class="btn text center" ng-click="unsubscribe()">Unsubscribe</button>
             </p>
             <p>
               By signing up for this application, you acknowledge and agree to the following: (i) if you use an Application to share information, you are consenting to information about your profile being shared; (ii) your use of an Application may cause personally identifying information to be publicly disclosed and/or associated with you, even if SEIA has not itself provided such information; and (iii) your use of an Application is at your own option and risk, and you will hold SEIA harmless for activity related to the Application.
@@ -256,7 +259,7 @@ friends. That’s
         <p>
           Copyright: Solar Energy Industries Association 2014 All code was created using open source code on <a href="https://github.com/Social-Solar/solar-advocacy" target="_blank">Git Hub</a>.
         </p>
-        <button class="btn text center" ng-click="unsubscribe()">Unsubscribe</button>
+        
       </div>
     </div>
 

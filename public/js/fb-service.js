@@ -91,7 +91,13 @@ angular.module('i-like-solar').factory('fb',
         $rootScope.$apply();
       });
     }
-
+	
+	function revokelogin() {
+		FB.api('/me/permissions', 'delete', function(response) {
+    	console.log(response); // true
+		});			
+	}
+	
     return {
       getLoginStatus:     getLoginStatus,
       login:              login,
@@ -101,7 +107,8 @@ angular.module('i-like-solar').factory('fb',
       createProfilePhoto: createProfilePhoto,
       createCoverPhoto:   createCoverPhoto,
       uploadPhoto:        uploadPhoto,
-      ui:                 ui
+      ui:                 ui,
+      revokelogin:        revokelogin
     };
   }
 );

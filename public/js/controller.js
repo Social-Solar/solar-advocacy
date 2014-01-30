@@ -224,7 +224,10 @@ angular.module('i-like-solar').controller('fbCtrl',
     }
 
     $scope.unsubscribe = function() {
-      salsa.deleteUser($scope.userId, function(err) {
+      fb.revokelogin(function (res) {
+		  createAlert('success', 'You have removed I Like Solar.');
+	  });
+	  salsa.deleteUser($scope.userId, function(err) {
         if (err) return createAlert('error', 'User does not exist or was not removed.');
         createAlert('success', 'You have successfully unsubscribed.');
       });
