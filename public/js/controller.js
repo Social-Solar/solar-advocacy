@@ -164,7 +164,8 @@ angular.module('i-like-solar').controller('fbCtrl',
     function solarizeCoverPhoto() {
       fb.getCoverUrl(function (res) {
         var coverUrl = res.cover.source;
-        fb.createCoverPhoto(coverUrl, $scope.userId, function (data) {
+		var offset = res.cover.offset_y;
+        fb.createCoverPhoto(coverUrl, offset, $scope.userId, function (data) {
           var picUrl = BASE_URL + data.url;
           $scope.coverUrl = picUrl;
         });

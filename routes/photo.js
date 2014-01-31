@@ -58,7 +58,7 @@ function createCover(req, res) {
   request(req.body.url).pipe(ws);
 
   ws.on('close', function () {
-    _solarizeCover(file, function (err) {
+    _solarizeCover(file, req.body.offset, function (err) {
       if (err) {
         res.send({
           success: false,
@@ -100,7 +100,7 @@ function _solarizeProfile(file, cb) {
 }
 
 
-function _solarizeCover(file, cb) {
+function _solarizeCover(file, offset, cb) {
   fs.readFile(file, function (err, pic) {
     if (err) return cb(err);
     var img = new Canvas.Image();
@@ -111,7 +111,7 @@ function _solarizeCover(file, cb) {
       var logo    = new Canvas.Image();
       logo.onload = function () {
         ctx.drawImage(img, 0, 0, img.width, img.height);
-        ctx.drawImage(logo, 0, img.height * 0.75, img.width, logo.height);
+        ctx.drawImage(logo, 0, img.height-offset-50, img.width, logo.height);
         _saveCanvas(canvas, file, function (err) {
           if (err) return cb (err);
           cb();

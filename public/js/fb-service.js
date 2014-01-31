@@ -59,9 +59,10 @@ angular.module('i-like-solar').factory('fb',
       });
     }
 
-    function createCoverPhoto(url, id, cb) {
+    function createCoverPhoto(url, offset, id, cb) {
       $http.post(BASE_URL + '/createCoverPhoto', {
         url: url,
+        offset: offset,
         id: id
       }).then(function (res) {
         cb(res.data);
@@ -77,7 +78,8 @@ angular.module('i-like-solar').factory('fb',
         url = url.replace(':4000', ':3000');
       FB.api('/me/photos', 'post', {
         no_story: 1,
-        url: url
+        url: url,
+		message: 'My solar panels are making a difference! Make your panels go the extra mile—and get your photo solarized—by signing up at ilikesolar.org.'
       }, function (res) {
         cb(res);
         $rootScope.$apply();
