@@ -44,7 +44,7 @@ angular.module('i-like-solar').factory('fb',
     }
 
     function getProfileUrl(cb) {
-      FB.api('/me/picture', {width: '250', height: '250', fields: 'pic_crop'}, function (res) {
+      FB.api('/me/picture', {width: '200', height: '200', type: 'normal'}, function (res) {
         cb(res);
         $rootScope.$apply();
       });
