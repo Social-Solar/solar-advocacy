@@ -180,7 +180,11 @@ angular.module('i-like-solar').controller('fbCtrl',
         if (resp.error) return createAlert('error', resp.error.message);
         $scope[picture + 'Solarized'] = true;
         $scope.uploading = false;
-        $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
+        if (picture == 'profile') {
+           $scope.solarized_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;
+		} else {
+           $scope.solarized_cover_url = 'https://www.facebook.com/photo.php?fbid=' + resp.id;	
+		}
         $scope.milestones[1].img = 'ms2-filled.png';
         $scope.largeMilestones[0] = 'large2-filled.png';
         createAlert('success', 'Profile photo successfully uploaded!');
