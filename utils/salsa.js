@@ -54,7 +54,7 @@ function getUser(key, cb) {
  * passed, success is assumed.
  */
 function saveUser(user, cb) {
-  var groupID = groupKeys[user.company.toLowerCase()] || groupKeys.Other;
+  var groupID = groupKeys[user.company.toLowerCase()] || groupKeys.other;
   var jar     = request.jar();
   _authenticate(jar, function (err) {
     if (err) return cb(err);
