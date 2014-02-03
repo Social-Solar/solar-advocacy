@@ -236,7 +236,7 @@ angular.module('i-like-solar').controller('fbCtrl',
 	  salsa.deleteUser($scope.userId, function(err) {
         if (err) return createAlert('error', 'User does not exist or was not removed.');
         createAlert('success', 'You have successfully unsubscribed.');
-		setTimeout(function () {location.reload(true);}, 3000);
+		setTimeout(function () {location.href = location.href + '?' + Math.rand();}, 2200);
       });
     };
 
