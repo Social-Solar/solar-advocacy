@@ -10,6 +10,7 @@ angular.module('i-like-solar').controller('fbCtrl',
     //looks for source in the query string
     $scope.source    = $location.search().source;
     $scope.swFriends = true;
+	$scope.swFoF = true;
 
     $scope.signUpClass = 'medium-box';
     $scope.profileSolarized = false;
