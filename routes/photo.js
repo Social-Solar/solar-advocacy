@@ -112,7 +112,6 @@ function _solarizeCover(file, offset, cb) {
       var ctx     = canvas.getContext('2d');
       var logo    = new Canvas.Image();	  
       var newoffset = (offset * newheight / img.height);
-	  app.scope = newoffset;
       logo.onload = function () {
         ctx.drawImage(img, 0, 0, 851, newheight);
         ctx.drawImage(logo, 0, newoffset + 230, 851, logo.height);
