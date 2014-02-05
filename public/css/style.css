@@ -152,10 +152,12 @@ h3 {
 }
 .solarized-examples .profile-pic {
   position: absolute;
-  max-width: 160px;
-  height: auto;
-  left: 40px;
-  top: 215px;
+    width: 160px;
+    height: 160px;
+    border: 4px solid rgb(255, 255, 255);
+    border-radius: 2px;
+    left: 17px;
+    top: 175px;
 }
 .solarized-examples .cover-pic {
   height: auto;
