@@ -58,19 +58,19 @@ function createCover(req, res) {
   request(req.body.url).pipe(ws);
 
   ws.on('close', function () {
-    _solarizeCover(file, req.body.offset, function (res) {
- //     if (err) {
-//        res.send({
- //         success: false,
- //         err: err
- //       });
- //     } else {
+    _solarizeCover(file, req.body.offset, function (err,data) {
+      if (err) {
+        res.send({
+         success: false,
+          err: err
+        });
+      } else {
         res.send({
           success: true,
           url: '/solarized/cover/' + req.body.id + '.jpg',
-		  newoffset: res
+		  newoffset: data
         });
- //     }
+     }
     });
   });
 }
@@ -118,7 +118,7 @@ function _solarizeCover(file, offset, cb) {
         ctx.drawImage(logo, 0, newoffset + 230, 851, logo.height);
         _saveCanvas(canvas, file, function (err) {
           if (err) return cb (err);
-          cb(newoffset);
+          cb(null,newoffset);
         });
       };
 
