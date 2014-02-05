@@ -168,7 +168,7 @@ angular.module('i-like-solar').controller('fbCtrl',
         fb.createCoverPhoto(coverUrl, offset, $scope.userId, function (data) {
           var picUrl = BASE_URL + data.url;
           $scope.coverUrl = picUrl;
-		  $scope.offset = data.newoffset;
+		  $scope.offset = Math.round(data.newoffset);
         });
       });
     }
