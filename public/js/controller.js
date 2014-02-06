@@ -227,7 +227,8 @@ angular.module('i-like-solar').controller('fbCtrl',
     function showModal() {
       $scope.permissionModal = $modal.open({
         templateUrl: 'permissions.html',
-        scope: $scope
+        scope: $scope,
+        backdrop: 'static'
       });
     }
 
