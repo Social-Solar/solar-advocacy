@@ -31,7 +31,7 @@
           <div ng-show="!signedUp">
             <span class="fb-title text">Generate power with a click</span>
             <img class="arrow" ng-src="img/arrow.png">
-            <img class="fb-login-btn" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
+            <img class="fb-login-btn" onClick="ga('send', 'event', 'button', 'click', 'big facebook');" ng-src="img/fb-logo.png" ng-click="login()" ng-disabled="joining">
           </div>
           <div class="fb-facepile" data-app-id="582937771761901" data-max-rows="2" data-colorscheme="light" data-size="medium" data-show-count="true" data-width="200"></div>
         </div>      
@@ -69,14 +69,14 @@
       </div>
       <div class="double-pane solarize-btns small-box">
         <div class="first-pane">
-          <img ng-show="!profileUploading" class="img-click" ng-src="img/profile.png" ng-click="uploadToFacebook('profile')">
+          <img onClick="ga('send', 'event', 'button', 'click', 'solarize profile');" ng-show="!profileUploading" class="img-click" ng-src="img/profile.png" ng-click="uploadToFacebook('profile')">
           <div class="body text" ng-show="!profileSolarized && profileUploading">Uploading...</div>
-          <a ng-show="profileSolarized && profileUploading" class="body text" href="{{solarized_url}}" target="_blank"><u>Link to your solarized profile photo!</u></a>
+          <a ng-show="profileSolarized && profileUploading" class="body text" href="{{solarized_url}}" target="_blank" onClick="ga('send', 'event', 'button', 'click', 'link to profile');"><u>Link to your solarized profile photo!</u></a>
         </div>
         <div class="second-pane right">
-          <img ng-show="!coverUploading" class="img-click" ng-src="img/cover.png" ng-click="uploadToFacebook('cover')">
+          <img onClick="ga('send', 'event', 'button', 'click', 'solarize cover');" ng-show="!coverUploading" class="img-click" ng-src="img/cover.png" ng-click="uploadToFacebook('cover')">
           <div class="body text" ng-show="!coverSolarized && coverUploading">Uploading...</div>
-          <a ng-show="coverSolarized && coverUploading" class="body text" href="{{solarized_cover_url}}" target="_blank"><u>Link to your solarized cover photo!</u></a>
+          <a ng-show="coverSolarized && coverUploading" class="body text" href="{{solarized_cover_url}}" target="_blank" onClick="ga('send', 'event', 'button', 'click', 'link to cover');"><u>Link to your solarized cover photo!</u></a>
         </div>
       </div>
       <div class="body text steps">
@@ -128,12 +128,12 @@ friends. That’s
         <div class="first-pane">
           <span class="title text">Share your solar story</span>
           <div class="body text">By sharing that you have solar on Facebook, you are inspiring your friends to go solar – and your friends’ friends, too.</div>
-          <img class="img-click" ng-src="img/story.png" ng-click="postFeed()">
+          <img class="img-click" ng-src="img/story.png" ng-click="postFeed()" onClick="ga('send', 'event', 'button', 'click', 'share story');">
         </div>
         <div class="second-pane">
           <span class="title text">Invite your friends</span>
           <div class="body text">Great minds think alike. It’s likely that you already know someone who installed solar. Suggest this idea to them.</div>
-          <img class="img-click" ng-src="img/invite.png" ng-click="requestFriends()">
+          <img class="img-click" ng-src="img/invite.png" ng-click="requestFriends()" onClick="ga('send', 'event', 'button', 'click', 'invite friends');">
         </div>
       </div>
       <div class="plug">
@@ -146,7 +146,7 @@ friends. That’s
           <div class="body text">We are building a solar Facebook community – please visit, Like and share your solar story at the I LIKE SOLAR Facebook Page to show the power of rooftop solar.</div>
         </div>
         <div class="second-pane">
-          <a target="_blank" href="https://www.facebook.com/ilikesolarapp">
+          <a target="_blank" href="https://www.facebook.com/ilikesolarapp" onClick="ga('send', 'event', 'button', 'click', 'visit fb page');">
             <img class="visit-btn" src="/img/visit.png">
           </a>
         </div>
