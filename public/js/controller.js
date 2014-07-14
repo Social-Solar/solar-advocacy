@@ -16,7 +16,7 @@ angular.module('i-like-solar').controller('fbCtrl',
     $scope.profileSolarized = false;
     $scope.coverSolarized   = false;
 
-    $scope.companies = ['Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint Solar', 'Other'];
+    $scope.companies = ['Borrego Solar', 'Clean Power Finance', 'Enphase', 'SolarCity', 'Sungevity', 'SunPower', 'Sunrun', 'Vivint Solar', 'Other'];
     if ($scope.companies.indexOf($scope.company) === -1) {
       $scope.company = null;
     }
