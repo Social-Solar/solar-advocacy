@@ -71,7 +71,7 @@ angular.module('i-like-solar').factory('fb',
 
     function uploadPhoto(url, cb) {
       if (url.indexOf('//local') === 0)
-        url = 'http://www.seia.org:3000/img/profile.jpg';
+        url = 'http://app.ilikesolar.org:3000/img/profile.jpg';
       else
         url = 'http:' + url;
       if (url.indexOf(':4000') !== -1)
@@ -93,13 +93,13 @@ angular.module('i-like-solar').factory('fb',
         $rootScope.$apply();
       });
     }
-	
+
 	function revokelogin() {
 		FB.api('/me/permissions', 'delete', function(response) {
     	console.log(response); // true
-		});			
+		});
 	}
-	
+
     return {
       getLoginStatus:     getLoginStatus,
       login:              login,
