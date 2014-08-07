@@ -1,5 +1,6 @@
 /* jshint node:true */
 'use strict';
+require('coffee-script/register');
 
 var    http = require('http'),
          fs = require('fs'),

@@ -1,5 +1,5 @@
 /* global angular, BASE_URL */
-angular.module('i-like-solar').factory('salsa',
+angular.module('i-like-solar').factory('database',
   function ($http) {
     'use strict';
 
@@ -21,7 +21,7 @@ angular.module('i-like-solar').factory('salsa',
 
     function deleteUser(user, cb) {
       var obj = {
-        email: user + '@koobecaf.com',
+        fb_id: user
       };
       var url = BASE_URL + '/delete/user';
       $http.post(url, obj).then(function (res) {

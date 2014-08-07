@@ -5,21 +5,19 @@ Solar Advocacy
 ##Running it Locally
 1. Go install NodeJS from `http://nodejs.org/`
 2. Get the git repo by running `git clone https://github.com/Social-Solar/solar-advocacy.git`.
-3. Make an entry in your `/etc/hosts` file to route `local.seia.org` to `127.0.0.1`
+3. Make an entry in your `/etc/hosts` file to route `local.ilikesolar.org` to `127.0.0.1`
 4. Read Important Note and create local.js
 5. Navigate your terminal to the root directory of the project.
 6. Run `npm install`
-7. To create an http server, run `node app`
-8. To create both an http and https server run `node app secure`
-9. The server will run locally on port(s) 3000 (http) and port 4000 (https)
+7. Update `knexfile.coffee` with the database configuration
+8. Run `knex migrate:latest`
+9. To create an http server, run `node app`
+10. To create both an http and https server run `node app secure`
+11. The server will run locally on port(s) 3000 (http) and port 4000 (https)
 
 ##Running it in Production
-1. ssh into seia.org (get credentials from Susanna)
-2. Navigate to `/var/www/vhosts/solaradv.www/solar-advocacy`
-3. run `git pull` to get the latest code from github.
-4. Run `npm install` if needed.
-5. Update `production.js` if needed.
-6. Run `node app secure`
+1. Submit a pull request for changes
+2. Once merged, server admin will deploy a new build
 
 Note: We'll probably want to make a service to start and stop this site.
 
